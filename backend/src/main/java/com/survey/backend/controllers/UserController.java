@@ -14,12 +14,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
-
     private final UserService userService;
 
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody UserAuthDTO dto) {
         userService.signUp(dto);
         return ResponseEntity.ok(Map.of("message", "회원가입 성공"));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserAuthDTO dto) {
+        String token = userService.login(dto);
+        return ResponseEntity.ok(Map.of(
+                "message", "로그인 성공",
+                "token", token
+        ));
     }
 }
