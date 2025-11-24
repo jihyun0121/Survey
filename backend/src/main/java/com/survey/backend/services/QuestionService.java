@@ -1,0 +1,45 @@
+package com.survey.backend.services;
+
+import org.springframework.stereotype.Service;
+
+import com.survey.backend.dtos.QuestionDTO;
+import com.survey.backend.entities.Form;
+import com.survey.backend.entities.Question;
+import com.survey.backend.repositories.FormRepository;
+import com.survey.backend.repositories.QuestionRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class QuestionService {
+    private final QuestionRepository questionRepository;
+    private final FormRepository formRepository;
+
+    private QuestionDTO qustionDto(Question q) {
+        return QuestionDTO.builder()
+                .questionId(q.getQuestionId())
+                .formId(q.getForm().getFormId())
+                .questionName(q.getQuestionName())
+                .questionContent(q.getQuestionContent())
+                .questionType(q.getQuestionType())
+                .isRequired(q.getIsRequired())
+                .questionOrder(q.getQuestionOrder())
+                .build();
+    }
+
+    public QuestionDTO createQuestion(QuestionDTO dto) {
+        Form form = formRepository.findById(dto.getFormId())
+                .orElseThrow(() -> new IllegalArgumentException("설문을 찾을 수 없습니다"));
+
+        Question question = Question.builder()
+                .questionName(dto.getQuestionName())
+                .questionContent(dto.getQuestionContent())
+                .questionType(dto.getQuestionType())
+                .form(form)
+                .build();
+
+        Question saved = questionRepository.save(question);
+        return qustionDto(saved);
+    }
+}

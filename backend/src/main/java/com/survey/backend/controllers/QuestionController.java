@@ -1,0 +1,24 @@
+package com.survey.backend.controllers;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.survey.backend.dtos.QuestionDTO;
+import com.survey.backend.services.QuestionService;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/questions")
+public class QuestionController {
+    private final QuestionService questionService;
+
+    @PostMapping
+    public ResponseEntity<?> createQuestion(@RequestBody QuestionDTO dto) {
+        QuestionDTO created = questionService.createQuestion(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
+
+}

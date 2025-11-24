@@ -22,6 +22,18 @@ public class FormService {
     private final FormRepository formRepository;
     private final UserRepository userRepository;
 
+    private FormDTO formDto(Form f) {
+        return FormDTO.builder()
+                .formId(f.getFormId())
+                .title(f.getTitle())
+                .description(f.getDescription())
+                .isPublic(f.getIsPublic())
+                .userId(f.getUser().getUserId())
+                .createdAt(f.getCreatedAt())
+                .updatedAt(f.getUpdatedAt())
+                .build();
+    }
+
     public FormDTO createForm(FormDTO dto) {
         User user = userRepository.findById(dto.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다"));
@@ -77,17 +89,5 @@ public class FormService {
             throw new IllegalArgumentException("설문을 찾을 수 없습니다");
         }
         formRepository.deleteById(formId);
-    }
-
-    private FormDTO formDto(Form f) {
-        return FormDTO.builder()
-                .formId(f.getFormId())
-                .title(f.getTitle())
-                .description(f.getDescription())
-                .isPublic(f.getIsPublic())
-                .userId(f.getUser().getUserId())
-                .createdAt(f.getCreatedAt())
-                .updatedAt(f.getUpdatedAt())
-                .build();
     }
 }
