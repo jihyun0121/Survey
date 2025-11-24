@@ -24,9 +24,6 @@ public class UserDTO {
     @Builder.Default
     private AuthProvider authProvider = AuthProvider.LOCAL;
 
-    @JsonProperty("oauth_id")
-    private String oauthId;
-
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
 }

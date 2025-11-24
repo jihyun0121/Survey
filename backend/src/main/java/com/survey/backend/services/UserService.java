@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.survey.backend.configs.jwt.JWToken;
 import com.survey.backend.dtos.UserAuthDTO;
+import com.survey.backend.dtos.UserDTO;
 import com.survey.backend.entities.User;
 import com.survey.backend.enums.AuthProvider;
 import com.survey.backend.repositories.UserRepository;
@@ -38,19 +39,30 @@ public class UserService {
     @Transactional(readOnly = true)
     public String login(UserAuthDTO dto) {
         User user = userRepository.findByEmail(dto.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다"));
 
         if (user.getPassword() == null) {
-            throw new IllegalArgumentException("비밀번호 로그인 불가능한 계정입니다.");
+            throw new IllegalArgumentException("구글로 가입된 계정입니다");
         }
 
         if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다");
         }
         return jwToken.createToken(
                 user.getUserId(),
                 user.getEmail(),
-                user.getAuthProvider()
-        );
+                user.getAuthProvider());
+    }
+
+    public UserDTO getProfile(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다"));
+
+        return UserDTO.builder()
+                .userId(user.getUserId())
+                .email(user.getEmail())
+                .authProvider(user.getAuthProvider())
+                .createdAt(user.getCreatedAt())
+                .build();
     }
 }
