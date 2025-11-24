@@ -60,6 +60,14 @@ public class FormService {
         return formDto(form);
     }
 
+    public FormDTO publishForm(Long formId, Boolean isPublic) {
+        Form form = formRepository.findById(formId)
+                .orElseThrow(() -> new IllegalArgumentException("설문을 찾을 수 없습니다"));
+
+        form.setIsPublic(isPublic);
+        return formDto(form);
+    }
+
     public void deleteForm(Long formId) {
         if (!formRepository.existsById(formId)) {
             throw new IllegalArgumentException("설문을 찾을 수 없습니다");
