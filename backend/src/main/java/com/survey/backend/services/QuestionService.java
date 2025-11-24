@@ -42,6 +42,7 @@ public class QuestionService {
                 .questionContent(dto.getQuestionContent())
                 .questionType(dto.getQuestionType())
                 .form(form)
+                .questionOrder(dto.getQuestionOrder())
                 .build();
 
         Question saved = questionRepository.save(question);
@@ -60,6 +61,17 @@ public class QuestionService {
         return questionRepository.findByForm_FormId(formId).stream()
                 .map(this::qustionDto)
                 .collect(Collectors.toList());
+    }
+
+    public QuestionDTO updateQuestion(Long questionId, QuestionDTO dto) {
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow(() -> new IllegalArgumentException("질문을 찾을 수 없습니다"));
+
+        question.setQuestionName(dto.getQuestionName());
+        question.setQuestionContent(dto.getQuestionContent());
+        question.setQuestionType(dto.getQuestionType());
+
+        return qustionDto(question);
     }
 
     public RequiredQuestionDTO setRequired(Long questionId, Boolean isRequired) {

@@ -29,6 +29,12 @@ public class QuestionController {
         return ResponseEntity.ok(question);
     }
 
+    @PutMapping("/{questionId}")
+    public ResponseEntity<?> updateQuestion(@PathVariable Long questionId, @RequestBody QuestionDTO dto) {
+        QuestionDTO question = questionService.updateQuestion(questionId, dto);
+        return ResponseEntity.ok(question);
+    }
+
     @PatchMapping("/{questionId}/required")
     public ResponseEntity<?> setRequired(@PathVariable Long questionId, @RequestParam Boolean isRequired) {
         RequiredQuestionDTO state = questionService.setRequired(questionId, isRequired);
