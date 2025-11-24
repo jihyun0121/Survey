@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.survey.backend.dtos.QuestionDTO;
+import com.survey.backend.dtos.RequiredQuestionDTO;
 import com.survey.backend.entities.Form;
 import com.survey.backend.entities.Question;
 import com.survey.backend.repositories.FormRepository;
@@ -59,5 +60,16 @@ public class QuestionService {
         return questionRepository.findByForm_FormId(formId).stream()
                 .map(this::qustionDto)
                 .collect(Collectors.toList());
+    }
+
+    public RequiredQuestionDTO setRequired(Long questionId, Boolean isRequired) {
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow(() -> new IllegalArgumentException("설문을 찾을 수 없습니다"));
+
+        question.setIsRequired(isRequired);
+
+        return RequiredQuestionDTO.builder()
+                .isRequired(isRequired)
+                .build();
     }
 }

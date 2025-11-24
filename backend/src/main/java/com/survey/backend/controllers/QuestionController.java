@@ -1,9 +1,12 @@
 package com.survey.backend.controllers;
 
+import java.util.Map;
+
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import com.survey.backend.dtos.QuestionDTO;
+import com.survey.backend.dtos.RequiredQuestionDTO;
 import com.survey.backend.services.QuestionService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,5 +27,11 @@ public class QuestionController {
     public ResponseEntity<?> getQuestion(@PathVariable Long questionId) {
         QuestionDTO question = questionService.getQuestion(questionId);
         return ResponseEntity.ok(question);
+    }
+
+    @PatchMapping("/{questionId}/required")
+    public ResponseEntity<?> setRequired(@PathVariable Long questionId, @RequestParam Boolean isRequired) {
+        RequiredQuestionDTO state = questionService.setRequired(questionId, isRequired);
+        return ResponseEntity.ok(Map.of("message", "질문 필수여부 변경", "게시됨", state));
     }
 }
