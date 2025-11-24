@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.survey.backend.dtos.FormDTO;
+import com.survey.backend.dtos.FormPublishDTO;
 import com.survey.backend.entities.Form;
 import com.survey.backend.entities.User;
 import com.survey.backend.repositories.FormRepository;
@@ -60,12 +61,15 @@ public class FormService {
         return formDto(form);
     }
 
-    public FormDTO publishForm(Long formId, Boolean isPublic) {
+    public FormPublishDTO publishForm(Long formId, Boolean isPublic) {
         Form form = formRepository.findById(formId)
                 .orElseThrow(() -> new IllegalArgumentException("설문을 찾을 수 없습니다"));
 
         form.setIsPublic(isPublic);
-        return formDto(form);
+
+        return FormPublishDTO.builder()
+                .isPublic(isPublic)
+                .build();
     }
 
     public void deleteForm(Long formId) {

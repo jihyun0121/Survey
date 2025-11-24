@@ -6,6 +6,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import com.survey.backend.dtos.FormDTO;
+import com.survey.backend.dtos.FormPublishDTO;
 import com.survey.backend.services.FormService;
 
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class FormController {
 
     @PatchMapping("/{formId}/publish")
     public ResponseEntity<?> publishForm(@PathVariable Long formId, @RequestParam Boolean isPublic) {
-        FormDTO state = formService.publishForm(formId, isPublic);
+        FormPublishDTO state = formService.publishForm(formId, isPublic);
         return ResponseEntity.ok(Map.of("message", "게시 상태가 변경되었습니다.", "게시됨", state));
     }
 
