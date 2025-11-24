@@ -1,6 +1,7 @@
 package com.survey.backend.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.survey.backend.dtos.QuestionDTO;
 import com.survey.backend.entities.Form;
@@ -41,5 +42,12 @@ public class QuestionService {
 
         Question saved = questionRepository.save(question);
         return qustionDto(saved);
+    }
+
+    @Transactional(readOnly = true)
+    public QuestionDTO getQuestion(Long questionId) {
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow(() -> new IllegalArgumentException("질문을 찾을 수 없습니다"));
+        return qustionDto(question);
     }
 }

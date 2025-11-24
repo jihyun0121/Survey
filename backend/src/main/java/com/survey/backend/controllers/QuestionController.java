@@ -1,7 +1,6 @@
 package com.survey.backend.controllers;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import com.survey.backend.dtos.QuestionDTO;
@@ -21,4 +20,9 @@ public class QuestionController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
+    @GetMapping("/{questionId}")
+    public ResponseEntity<?> getQuestion(@PathVariable Long questionId) {
+        QuestionDTO question = questionService.getQuestion(questionId);
+        return ResponseEntity.ok(question);
+    }
 }
