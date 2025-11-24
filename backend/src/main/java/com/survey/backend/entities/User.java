@@ -44,6 +44,7 @@ public class User {
     private String oauthId;
 
     @CreationTimestamp
+    @Column(name = "created_at")
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
 }

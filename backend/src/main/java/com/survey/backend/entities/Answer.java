@@ -19,26 +19,32 @@ public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "answer_id")
+    @JsonProperty("answer_id")
     private Long answerId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", nullable = false)
+    @JsonProperty("question_id")
     @JsonIgnore
     private Question question;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "option_id")
+    @JsonProperty("option_id")
     @JsonIgnore
     private Option option;
 
     @Column(name = "answer_text", length = 100)
+    @JsonProperty("answer_text")
     private String answerText;
 
     @Column(name = "answer_long")
+    @JsonProperty("answer_long")
     private String answerLong;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonProperty("user_id")
     @JsonIgnore
     private User user;
 
