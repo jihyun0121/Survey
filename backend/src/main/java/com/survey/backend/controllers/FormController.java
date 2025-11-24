@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.survey.backend.dtos.FormDTO;
 import com.survey.backend.dtos.FormPublishDTO;
+import com.survey.backend.dtos.QuestionDTO;
 import com.survey.backend.services.FormService;
+import com.survey.backend.services.QuestionService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/forms")
 public class FormController {
     private final FormService formService;
+    private final QuestionService questionService;
 
     @PostMapping
     public ResponseEntity<?> createForm(@RequestBody FormDTO dto) {
@@ -33,6 +36,12 @@ public class FormController {
     public ResponseEntity<?> getFormsByUser(@PathVariable Long userId) {
         List<FormDTO> forms = formService.getFormsByUser(userId);
         return ResponseEntity.ok(forms);
+    }
+
+    @GetMapping("/{formId}/questions")
+    public ResponseEntity<?> getQuestionsByForm(@PathVariable Long formId) {
+        List<QuestionDTO> question = questionService.getQuestionsByForm(formId);
+        return ResponseEntity.ok(question);
     }
 
     @PutMapping("/{formId}")
