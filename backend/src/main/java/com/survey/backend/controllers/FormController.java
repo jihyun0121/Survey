@@ -33,4 +33,10 @@ public class FormController {
         List<FormDTO> forms = formService.getFormsByUser(userId);
         return ResponseEntity.ok(forms);
     }
+
+    @PutMapping("/{formId}")
+    public ResponseEntity<?> updateForm(@PathVariable Long formId, @RequestBody FormDTO dto) {
+        FormDTO form = formService.updateForm(formId, dto);
+        return ResponseEntity.ok(form);
+    }
 }

@@ -50,6 +50,16 @@ public class FormService {
                 .collect(Collectors.toList());
     }
 
+    public FormDTO updateForm(Long formId, FormDTO dto) {
+        Form form = formRepository.findById(formId)
+                .orElseThrow(() -> new IllegalArgumentException("설문을 찾을 수 없습니다"));
+
+        form.setTitle(dto.getTitle());
+        form.setDescription(dto.getDescription());
+
+        return formDto(form);
+    }
+
     private FormDTO formDto(Form f) {
         return FormDTO.builder()
                 .formId(f.getFormId())
