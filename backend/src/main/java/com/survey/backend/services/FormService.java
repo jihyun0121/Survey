@@ -33,6 +33,13 @@ public class FormService {
         return formDto(saved);
     }
 
+    @Transactional(readOnly = true)
+    public FormDTO getForm(Long formId) {
+        Form form = formRepository.findById(formId)
+                .orElseThrow(() -> new IllegalArgumentException("설문을 찾을 수 없습니다"));
+        return formDto(form);
+    }
+
     private FormDTO formDto(Form f) {
         return FormDTO.builder()
                 .formId(f.getFormId())

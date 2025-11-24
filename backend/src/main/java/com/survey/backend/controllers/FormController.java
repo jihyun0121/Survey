@@ -19,4 +19,10 @@ public class FormController {
         FormDTO created = formService.createForm(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
+
+    @GetMapping("/{formId}")
+    public ResponseEntity<?> getForm(@PathVariable Long formId) {
+        FormDTO form = formService.getForm(formId);
+        return ResponseEntity.ok(form);
+    }
 }
