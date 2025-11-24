@@ -2,13 +2,11 @@ package com.survey.backend.controllers;
 
 import java.util.*;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import com.survey.backend.dtos.UserAuthDTO;
 import com.survey.backend.dtos.UserDTO;
-import com.survey.backend.entities.User;
 import com.survey.backend.services.UserService;
 
 import lombok.RequiredArgsConstructor;

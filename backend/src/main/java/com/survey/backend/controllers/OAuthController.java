@@ -1,0 +1,23 @@
+package com.survey.backend.controllers;
+
+import java.util.Map;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.survey.backend.services.OAuthService;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequiredArgsConstructor
+public class OAuthController {
+    private final OAuthService oAuthService;
+
+    @GetMapping("/auth/login/google")
+    public ResponseEntity<?> googleCallback(@RequestParam("code") String code) {
+        String jwtToken = oAuthService.loginWithGoogle(code);
+        return ResponseEntity.ok(
+                Map.of("message", "구글 로그인 성공", "token", jwtToken));
+    }
+}
