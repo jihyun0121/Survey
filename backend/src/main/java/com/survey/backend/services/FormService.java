@@ -60,6 +60,13 @@ public class FormService {
         return formDto(form);
     }
 
+    public void deleteForm(Long formId) {
+        if (!formRepository.existsById(formId)) {
+            throw new IllegalArgumentException("설문을 찾을 수 없습니다");
+        }
+        formRepository.deleteById(formId);
+    }
+
     private FormDTO formDto(Form f) {
         return FormDTO.builder()
                 .formId(f.getFormId())

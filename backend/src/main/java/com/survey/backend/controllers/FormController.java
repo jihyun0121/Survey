@@ -39,4 +39,10 @@ public class FormController {
         FormDTO form = formService.updateForm(formId, dto);
         return ResponseEntity.ok(form);
     }
+
+    @DeleteMapping("/{formId}")
+    public ResponseEntity<?> deleteForm(@PathVariable Long formId) {
+        formService.deleteForm(formId);
+        return ResponseEntity.ok(Map.of("message", "설문이 삭제되었습니다"));
+    }
 }
