@@ -41,7 +41,7 @@ public class FormController {
     }
 
     @PatchMapping("/{formId}/publish")
-    public ResponseEntity<?> publishForm(@PathVariable Long formId, @RequestBody Boolean isPublic) {
+    public ResponseEntity<?> publishForm(@PathVariable Long formId, @RequestParam Boolean isPublic) {
         FormDTO state = formService.publishForm(formId, isPublic);
         return ResponseEntity.ok(Map.of("message", "게시 상태가 변경되었습니다.", "게시됨", state));
     }
