@@ -1,5 +1,8 @@
 package com.survey.backend.services;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +41,13 @@ public class FormService {
         Form form = formRepository.findById(formId)
                 .orElseThrow(() -> new IllegalArgumentException("설문을 찾을 수 없습니다"));
         return formDto(form);
+    }
+
+    @Transactional(readOnly = true)
+    public List<FormDTO> getFormsByUser(Long userId) {
+        return formRepository.findByUser_UserId(userId).stream()
+                .map(this::formDto)
+                .collect(Collectors.toList());
     }
 
     private FormDTO formDto(Form f) {
