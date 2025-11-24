@@ -16,7 +16,6 @@ import lombok.*;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JWToken jwToken;
