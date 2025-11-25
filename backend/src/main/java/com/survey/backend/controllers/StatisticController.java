@@ -52,4 +52,9 @@ public class StatisticController {
     public ResponseEntity<?> streamLiveStats(@PathVariable Long formId) {
         return ResponseEntity.ok(statisticService.streamLiveStats(formId));
     }
+
+    @GetMapping("/forms/{formId}/coded")
+    public ResponseEntity<?> getCodedData(@PathVariable Long formId) {
+        return ResponseEntity.ok(statisticService.getCodedData(formId));
+    }
 }
