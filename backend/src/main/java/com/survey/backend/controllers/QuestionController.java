@@ -5,10 +5,12 @@ import java.util.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import com.survey.backend.dtos.AnswerDTO;
 import com.survey.backend.dtos.OptionDTO;
 import com.survey.backend.dtos.QuestionDTO;
 import com.survey.backend.dtos.QuestionOrderDTO;
 import com.survey.backend.dtos.RequiredQuestionDTO;
+import com.survey.backend.services.AnswerService;
 import com.survey.backend.services.OptionService;
 import com.survey.backend.services.QuestionService;
 
@@ -20,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class QuestionController {
     private final QuestionService questionService;
     private final OptionService optionService;
+    private final AnswerService answService;
 
     @PostMapping
     public ResponseEntity<?> createQuestion(@RequestBody QuestionDTO dto) {
@@ -36,6 +39,12 @@ public class QuestionController {
     @GetMapping("/{questionId}/options")
     public ResponseEntity<?> getQuestionsByForm(@PathVariable Long questionId) {
         List<OptionDTO> question = optionService.getOptionsByQuestion(questionId);
+        return ResponseEntity.ok(question);
+    }
+
+    @GetMapping("/{questionId}/answers")
+    public ResponseEntity<?> getAnswersByQuestion(@PathVariable Long questionId) {
+        List<AnswerDTO> question = answService.getAnswersByQuestion(questionId);
         return ResponseEntity.ok(question);
     }
 
