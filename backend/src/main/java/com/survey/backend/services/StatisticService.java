@@ -115,4 +115,12 @@ public class StatisticService {
         return combinationKeys.stream()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
+
+    public List<String> getTextAnswers(Long questionId) {
+        return statisticRepository.findByQuestion_QuestionIdAndOptionIsNull(questionId).stream()
+                .map(a -> a.getAnswerText() != null ? a.getAnswerText() : a.getAnswerLong())
+                .filter(Objects::nonNull)
+                .filter(s -> !s.isBlank())
+                .toList();
+    }
 }
