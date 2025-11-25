@@ -1,5 +1,8 @@
 package com.survey.backend.services;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,5 +48,12 @@ public class OptionService {
         Option option = optionRepository.findById(optionId)
                 .orElseThrow(() -> new IllegalArgumentException("질문을 찾을 수 없습니다"));
         return qustionDto(option);
+    }
+
+    @Transactional(readOnly = true)
+    public List<OptionDTO> getOptionsByQuestion(Long questionId) {
+        return optionRepository.findByQuestion_QuestionId(questionId).stream()
+                .map(this::qustionDto)
+                .collect(Collectors.toList());
     }
 }
