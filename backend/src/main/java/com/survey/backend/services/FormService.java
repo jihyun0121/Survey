@@ -68,8 +68,10 @@ public class FormService {
         Form form = formRepository.findById(formId)
                 .orElseThrow(() -> new IllegalArgumentException("설문을 찾을 수 없습니다"));
 
-        form.setTitle(dto.getTitle());
-        form.setDescription(dto.getDescription());
+        if (dto.getTitle() != null)
+            form.setTitle(dto.getTitle());
+        if (dto.getDescription() != null)
+            form.setDescription(dto.getDescription());
 
         return formDto(form);
     }

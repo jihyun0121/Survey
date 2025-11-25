@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.survey.backend.dtos.QuestionDTO;
+import com.survey.backend.dtos.QuestionOrderDTO;
 import com.survey.backend.dtos.RequiredQuestionDTO;
 import com.survey.backend.entities.Form;
 import com.survey.backend.entities.Question;
@@ -68,9 +69,12 @@ public class QuestionService {
         Question question = questionRepository.findById(questionId)
                 .orElseThrow(() -> new IllegalArgumentException("질문을 찾을 수 없습니다"));
 
-        question.setQuestionName(dto.getQuestionName());
-        question.setQuestionContent(dto.getQuestionContent());
-        question.setQuestionType(dto.getQuestionType());
+        if (dto.getQuestionName() != null)
+            question.setQuestionName(dto.getQuestionName());
+        if (dto.getQuestionContent() != null)
+            question.setQuestionContent(dto.getQuestionContent());
+        if (dto.getQuestionType() != null)
+            question.setQuestionType(dto.getQuestionType());
 
         return qustionDto(question);
     }
@@ -84,6 +88,30 @@ public class QuestionService {
 
         return RequiredQuestionDTO.builder()
                 .isRequired(isRequired)
+                .build();
+    }
+
+    @Transactional
+    public QuestionOrderDTO reorderQuestions(QuestionOrderDTO dto) {
+        Question question = questionRepository.findById(dto.getQuestionId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 질문을 찾을 수 없습니다."));
+
+        Long formId = question.getForm().getFormId();
+
+        if (dto.getQuestionOrder() != null && !dto.getQuestionOrder().equals(question.getQuestionOrder())) {
+            Long oldOrder = question.getQuestionOrder();
+            Long newOrder = dto.getQuestionOrder();
+
+            if (newOrder > oldOrder) {
+                questionRepository.shiftOrderDown(formId, oldOrder, newOrder);
+            } else {
+                questionRepository.shiftOrderUp(formId, newOrder, oldOrder);
+            }
+            question.setQuestionOrder(newOrder);
+        }
+
+        return QuestionOrderDTO.builder()
+                .questionOrder(question.getQuestionOrder())
                 .build();
     }
 }
