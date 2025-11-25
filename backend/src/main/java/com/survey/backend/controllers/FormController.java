@@ -53,12 +53,12 @@ public class FormController {
     @PatchMapping("/{formId}/publish")
     public ResponseEntity<?> publishForm(@PathVariable Long formId, @RequestParam Boolean isPublic) {
         FormPublishDTO state = formService.publishForm(formId, isPublic);
-        return ResponseEntity.ok(Map.of("message", "게시 상태가 변경", "게시됨", state));
+        return ResponseEntity.ok(Map.of("message", "게시 상태 변경", "게시됨", state));
     }
 
     @DeleteMapping("/{formId}")
     public ResponseEntity<?> deleteForm(@PathVariable Long formId) {
         formService.deleteForm(formId);
-        return ResponseEntity.ok(Map.of("message", "설문이 삭제"));
+        return ResponseEntity.ok(Map.of("message", "설문 삭제"));
     }
 }

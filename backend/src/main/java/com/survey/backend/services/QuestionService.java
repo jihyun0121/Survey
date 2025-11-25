@@ -114,4 +114,15 @@ public class QuestionService {
                 .questionOrder(question.getQuestionOrder())
                 .build();
     }
+
+    @Transactional
+    public void deleteQuestion(Long questionId) {
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 질문을 찾을 수 없습니다."));
+
+        Long formId = question.getForm().getFormId();
+        Long deletedOrder = question.getQuestionOrder();
+        questionRepository.delete(question);
+        questionRepository.shiftOrderAfterDelete(formId, deletedOrder);
+    }
 }

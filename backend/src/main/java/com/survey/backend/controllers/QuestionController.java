@@ -47,4 +47,10 @@ public class QuestionController {
         QuestionOrderDTO order = questionService.reorderQuestions(dto);
         return ResponseEntity.ok(Map.of("message", "질문 순서 변경", "순서", order));
     }
+
+    @DeleteMapping("/{questionId}")
+    public ResponseEntity<?> deleteQuestion(@PathVariable Long questionId) {
+        questionService.deleteQuestion(questionId);
+        return ResponseEntity.ok(Map.of("message", "질문 삭제"));
+    }
 }
