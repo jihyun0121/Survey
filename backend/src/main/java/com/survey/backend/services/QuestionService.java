@@ -111,6 +111,7 @@ public class QuestionService {
         }
 
         return QuestionOrderDTO.builder()
+                .questionId(question.getQuestionId())
                 .questionOrder(question.getQuestionOrder())
                 .build();
     }

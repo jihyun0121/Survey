@@ -1,9 +1,12 @@
 package com.survey.backend.controllers;
 
+import java.util.Map;
+
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import com.survey.backend.dtos.OptionDTO;
+import com.survey.backend.dtos.OptionOrderDTO;
 import com.survey.backend.services.OptionService;
 
 import lombok.RequiredArgsConstructor;
@@ -30,5 +33,11 @@ public class OptionController {
     public ResponseEntity<?> updateOption(@PathVariable Long optionId, @RequestBody OptionDTO dto) {
         OptionDTO option = optionService.updateOption(optionId, dto);
         return ResponseEntity.ok(option);
+    }
+
+    @PatchMapping("/order")
+    public ResponseEntity<?> reorderOptions(@RequestBody OptionOrderDTO dto) {
+        OptionOrderDTO order = optionService.reorderOptions(dto);
+        return ResponseEntity.ok(Map.of("message", "질문 순서 변경", "순서", order));
     }
 }

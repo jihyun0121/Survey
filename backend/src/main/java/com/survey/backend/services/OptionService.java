@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.survey.backend.dtos.OptionDTO;
+import com.survey.backend.dtos.OptionOrderDTO;
 import com.survey.backend.entities.Question;
 import com.survey.backend.entities.Option;
 import com.survey.backend.repositories.QuestionRepository;
@@ -66,5 +67,30 @@ public class OptionService {
             option.setOptionContent(dto.getOptionContent());
 
         return qustionDto(option);
+    }
+
+    @Transactional
+    public OptionOrderDTO reorderOptions(OptionOrderDTO dto) {
+        Option option = optionRepository.findById(dto.getOptionId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 질문을 찾을 수 없습니다."));
+
+        Long questionId = option.getQuestion().getQuestionId();
+
+        if (dto.getOptionOrder() != null && !dto.getOptionOrder().equals(option.getOptionOrder())) {
+            Long oldOrder = option.getOptionOrder();
+            Long newOrder = dto.getOptionOrder();
+
+            if (newOrder > oldOrder) {
+                optionRepository.shiftOrderDown(questionId, oldOrder, newOrder);
+            } else {
+                optionRepository.shiftOrderUp(questionId, newOrder, oldOrder);
+            }
+            option.setOptionOrder(newOrder);
+        }
+
+        return OptionOrderDTO.builder()
+                .optionId(option.getOptionId())
+                .optionOrder(option.getOptionOrder())
+                .build();
     }
 }
