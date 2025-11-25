@@ -1,5 +1,7 @@
 package com.survey.backend.services;
 
+import java.util.*;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,5 +68,15 @@ public class AnswerService {
         Answer answer = answerRepository.findById(answerId)
                 .orElseThrow(() -> new IllegalArgumentException("응답을 찾을 수 없습니다"));
         return answerDto(answer);
+    }
+
+    @Transactional(readOnly = true)
+    public List<AnswerDTO> getUserAnswerForForm(Long userId, Long formId) {
+        List<Answer> answers = answerRepository
+                .findByUser_UserIdAndQuestion_Form_FormId(userId, formId);
+
+        return answers.stream()
+                .map(this::answerDto)
+                .toList();
     }
 }

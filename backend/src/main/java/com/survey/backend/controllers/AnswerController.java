@@ -1,5 +1,7 @@
 package com.survey.backend.controllers;
 
+import java.util.*;
+
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,4 +26,11 @@ public class AnswerController {
         AnswerDTO answer = answerService.getAnswer(answerId);
         return ResponseEntity.ok(answer);
     }
+
+    @GetMapping("/user/{userId}/forms/{formId}")
+    public ResponseEntity<?> getUserAnswerForForm(@PathVariable Long userId, @PathVariable Long formId) {
+        List<AnswerDTO> answers = answerService.getUserAnswerForForm(userId, formId);
+        return ResponseEntity.ok(answers);
+    }
+
 }
