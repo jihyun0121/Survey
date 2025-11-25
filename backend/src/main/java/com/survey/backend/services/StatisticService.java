@@ -50,4 +50,28 @@ public class StatisticService {
 
         return Math.max(totalrespondent - answered, 0L);
     }
+
+    public Map<String, Object> getFormStatistics(Long formId) {
+        List<Answer> answers = statisticRepository.findByQuestion_Form_FormId(formId);
+
+        long totalAnswers = answers.size();
+        long respondent = statisticRepository.countDistinctUserByFormId(formId);
+
+        long textAnswers = answers.stream()
+                .filter(a -> a.getOption() == null &&
+                        ((a.getAnswerText() != null && !a.getAnswerText().isBlank())
+                                || (a.getAnswerLong() != null && !a.getAnswerLong().isBlank())))
+                .count();
+
+        long optionAnswers = answers.stream()
+                .filter(a -> a.getOption() != null)
+                .count();
+
+        return Map.of(
+                "form_id", formId,
+                "respondent", respondent,
+                "total_answers", totalAnswers,
+                "text_answers", textAnswers,
+                "option_answers", optionAnswers);
+    }
 }

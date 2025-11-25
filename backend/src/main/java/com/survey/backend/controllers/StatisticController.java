@@ -27,4 +27,9 @@ public class StatisticController {
     public ResponseEntity<?> getUnansweredCount(@PathVariable Long questionId) {
         return ResponseEntity.ok(statisticService.getUnansweredCount(questionId));
     }
+
+    @GetMapping("/forms/{formId}")
+    public ResponseEntity<?> getFormStatistics(@PathVariable Long formId) {
+        return ResponseEntity.ok(statisticService.getFormStatistics(formId));
+    }
 }
