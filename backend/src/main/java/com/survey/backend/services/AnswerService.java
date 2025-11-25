@@ -26,7 +26,7 @@ public class AnswerService {
         return AnswerDTO.builder()
                 .answerId(a.getAnswerId())
                 .questionId(a.getQuestion().getQuestionId())
-                .optionId(a.getOption().getOptionId())
+                .optionId(a.getOption() != null ? a.getOption().getOptionId() : null)
                 .answerText(a.getAnswerText())
                 .answerLong(a.getAnswerLong())
                 .userId(a.getUser().getUserId())
@@ -37,8 +37,14 @@ public class AnswerService {
     public AnswerDTO saveAnswers(AnswerDTO dto) {
         Question question = questionRepository.findById(dto.getQuestionId())
                 .orElseThrow(() -> new IllegalArgumentException("질문을 찾을 수 없습니다"));
-        Option option = optionRepository.findById(dto.getOptionId())
-                .orElseThrow(() -> new IllegalArgumentException("질문을 찾을 수 없습니다"));
+
+        Option option;
+        if (dto.getOptionId() != null)
+            option = optionRepository.findById(dto.getOptionId())
+                    .orElseThrow(() -> new IllegalArgumentException("질문을 찾을 수 없습니다"));
+        else
+            option = null;
+
         User user = userRepository.findById(dto.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("질문을 찾을 수 없습니다"));
 

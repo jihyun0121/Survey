@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/answer")
+@RequestMapping("/answers")
 public class AnswerController {
     private final AnswerService answerService;
 

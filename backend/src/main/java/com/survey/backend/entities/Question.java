@@ -1,7 +1,6 @@
 package com.survey.backend.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 
 import jakarta.persistence.*;
 import lombok.*;
