@@ -32,4 +32,9 @@ public class StatisticController {
     public ResponseEntity<?> getFormStatistics(@PathVariable Long formId) {
         return ResponseEntity.ok(statisticService.getFormStatistics(formId));
     }
+
+    @GetMapping("/questions/{questionId}/options")
+    public ResponseEntity<?> getOptionStats(@PathVariable Long questionId) {
+        return ResponseEntity.ok(statisticService.getOptionStats(questionId));
+    }
 }
