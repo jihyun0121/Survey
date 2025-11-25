@@ -95,4 +95,24 @@ public class StatisticService {
                                 Collectors.counting(),
                                 cnt -> (cnt * 100.0) / totalOptionAnswers)));
     }
+
+    public Map<String, Long> getCheckboxGroupStats(Long questionId) {
+        List<Answer> answers = statisticRepository.findByQuestion_QuestionId(questionId);
+
+        Map<Long, List<Long>> byUser = answers.stream()
+                .filter(a -> a.getOption() != null && a.getUser() != null)
+                .collect(Collectors.groupingBy(
+                        a -> a.getUser().getUserId(),
+                        Collectors.mapping(a -> a.getOption().getOptionId(), Collectors.toList())));
+
+        List<String> combinationKeys = byUser.values().stream()
+                .map(list -> list.stream()
+                        .sorted()
+                        .map(String::valueOf)
+                        .collect(Collectors.joining(",")))
+                .toList();
+
+        return combinationKeys.stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    }
 }

@@ -37,4 +37,9 @@ public class StatisticController {
     public ResponseEntity<?> getOptionStats(@PathVariable Long questionId) {
         return ResponseEntity.ok(statisticService.getOptionStats(questionId));
     }
+
+    @GetMapping("/questions/{questionId}/checkbox")
+    public ResponseEntity<?> getCheckboxGroupStats(@PathVariable Long questionId) {
+        return ResponseEntity.ok(statisticService.getCheckboxGroupStats(questionId));
+    }
 }
