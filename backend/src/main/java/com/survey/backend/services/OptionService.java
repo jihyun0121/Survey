@@ -56,4 +56,15 @@ public class OptionService {
                 .map(this::qustionDto)
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public OptionDTO updateOption(Long optionId, OptionDTO dto) {
+        Option option = optionRepository.findById(optionId)
+                .orElseThrow(() -> new IllegalArgumentException("질문을 찾을 수 없습니다"));
+
+        if (dto.getOptionContent() != null)
+            option.setOptionContent(dto.getOptionContent());
+
+        return qustionDto(option);
+    }
 }

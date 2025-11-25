@@ -25,4 +25,10 @@ public class OptionController {
         OptionDTO option = optionService.getOption(optionId);
         return ResponseEntity.ok(option);
     }
+
+    @PutMapping("/{optionId}")
+    public ResponseEntity<?> updateOption(@PathVariable Long optionId, @RequestBody OptionDTO dto) {
+        OptionDTO option = optionService.updateOption(optionId, dto);
+        return ResponseEntity.ok(option);
+    }
 }
