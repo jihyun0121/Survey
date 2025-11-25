@@ -5,9 +5,11 @@ import java.util.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import com.survey.backend.dtos.AnswerDTO;
 import com.survey.backend.dtos.FormDTO;
 import com.survey.backend.dtos.FormPublishDTO;
 import com.survey.backend.dtos.QuestionDTO;
+import com.survey.backend.services.AnswerService;
 import com.survey.backend.services.FormService;
 import com.survey.backend.services.QuestionService;
 
@@ -19,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class FormController {
     private final FormService formService;
     private final QuestionService questionService;
+    private final AnswerService answerService;
 
     @PostMapping
     public ResponseEntity<?> createForm(@RequestBody FormDTO dto) {
@@ -41,6 +44,12 @@ public class FormController {
     @GetMapping("/{formId}/questions")
     public ResponseEntity<?> getQuestionsByForm(@PathVariable Long formId) {
         List<QuestionDTO> question = questionService.getQuestionsByForm(formId);
+        return ResponseEntity.ok(question);
+    }
+
+    @GetMapping("/{formId}/answers")
+    public ResponseEntity<?> getAnswersByForm(@PathVariable Long formId) {
+        List<AnswerDTO> question = answerService.getAnswersByForm(formId);
         return ResponseEntity.ok(question);
     }
 

@@ -79,6 +79,14 @@ public class AnswerService {
         }
 
         @Transactional(readOnly = true)
+        public List<AnswerDTO> getAnswersByForm(Long formId) {
+                List<Answer> answers = answerRepository.findByQuestion_Form_FormId(formId);
+                return answers.stream()
+                                .map(this::answerDto)
+                                .toList();
+        }
+
+        @Transactional(readOnly = true)
         public List<AnswerDTO> getUserAnswerForForm(Long userId, Long formId) {
                 List<Answer> answers = answerRepository.findByUser_UserIdAndQuestion_Form_FormId(userId, formId);
                 return answers.stream()

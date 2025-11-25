@@ -11,5 +11,7 @@ import com.survey.backend.entities.Answer;
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
     List<Answer> findByQuestion_QuestionId(Long questionId);
 
+    List<Answer> findByQuestion_Form_FormId(Long formId);
+
     List<Answer> findByUser_UserIdAndQuestion_Form_FormId(Long userId, Long formId);
 }
