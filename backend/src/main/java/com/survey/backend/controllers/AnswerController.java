@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.survey.backend.dtos.AnswerDTO;
 import com.survey.backend.services.AnswerService;
+import com.survey.backend.services.StatisticService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/answers")
 public class AnswerController {
     private final AnswerService answerService;
+    private final StatisticService statisticService;
 
     @PostMapping
     public ResponseEntity<?> saveAnswers(@RequestBody AnswerDTO dto) {
@@ -31,6 +33,11 @@ public class AnswerController {
     public ResponseEntity<?> getUserAnswerForForm(@PathVariable Long userId, @PathVariable Long formId) {
         List<AnswerDTO> answers = answerService.getUserAnswerForForm(userId, formId);
         return ResponseEntity.ok(answers);
+    }
+
+    @GetMapping("/user/{userId}/forms")
+    public ResponseEntity<?> getSurveyHistory(@PathVariable Long userId) {
+        return ResponseEntity.ok(statisticService.getSurveyHistory(userId));
     }
 
     @DeleteMapping("/{userId}")
