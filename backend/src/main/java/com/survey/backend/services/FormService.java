@@ -63,6 +63,7 @@ public class FormService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public FormDTO updateForm(Long formId, FormDTO dto) {
         Form form = formRepository.findById(formId)
                 .orElseThrow(() -> new IllegalArgumentException("설문을 찾을 수 없습니다"));
@@ -73,6 +74,7 @@ public class FormService {
         return formDto(form);
     }
 
+    @Transactional
     public FormPublishDTO publishForm(Long formId, Boolean isPublic) {
         Form form = formRepository.findById(formId)
                 .orElseThrow(() -> new IllegalArgumentException("설문을 찾을 수 없습니다"));
@@ -84,6 +86,7 @@ public class FormService {
                 .build();
     }
 
+    @Transactional
     public void deleteForm(Long formId) {
         if (!formRepository.existsById(formId)) {
             throw new IllegalArgumentException("설문을 찾을 수 없습니다");

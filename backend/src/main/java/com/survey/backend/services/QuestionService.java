@@ -63,6 +63,7 @@ public class QuestionService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public QuestionDTO updateQuestion(Long questionId, QuestionDTO dto) {
         Question question = questionRepository.findById(questionId)
                 .orElseThrow(() -> new IllegalArgumentException("질문을 찾을 수 없습니다"));
@@ -74,6 +75,7 @@ public class QuestionService {
         return qustionDto(question);
     }
 
+    @Transactional
     public RequiredQuestionDTO setRequired(Long questionId, Boolean isRequired) {
         Question question = questionRepository.findById(questionId)
                 .orElseThrow(() -> new IllegalArgumentException("설문을 찾을 수 없습니다"));

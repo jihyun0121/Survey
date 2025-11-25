@@ -38,6 +38,6 @@ public class QuestionController {
     @PatchMapping("/{questionId}/required")
     public ResponseEntity<?> setRequired(@PathVariable Long questionId, @RequestParam Boolean isRequired) {
         RequiredQuestionDTO state = questionService.setRequired(questionId, isRequired);
-        return ResponseEntity.ok(Map.of("message", "질문 필수여부 변경", "게시됨", state));
+        return ResponseEntity.ok(Map.of("message", "질문 필수여부 변경", "상태", state));
     }
 }
