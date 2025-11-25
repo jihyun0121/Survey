@@ -21,7 +21,7 @@ public class OptionService {
     private final OptionRepository optionRepository;
     private final QuestionRepository questionRepository;
 
-    private OptionDTO qustionDto(Option q) {
+    private OptionDTO optionDto(Option q) {
         return OptionDTO.builder()
                 .optionId(q.getOptionId())
                 .questionId(q.getQuestion().getQuestionId())
@@ -32,7 +32,7 @@ public class OptionService {
 
     public OptionDTO createOption(OptionDTO dto) {
         Question question = questionRepository.findById(dto.getQuestionId())
-                .orElseThrow(() -> new IllegalArgumentException("설문을 찾을 수 없습니다"));
+                .orElseThrow(() -> new IllegalArgumentException("질문을 찾을 수 없습니다"));
 
         Option option = Option.builder()
                 .optionContent(dto.getOptionContent())
@@ -41,20 +41,20 @@ public class OptionService {
                 .build();
 
         Option saved = optionRepository.save(option);
-        return qustionDto(saved);
+        return optionDto(saved);
     }
 
     @Transactional(readOnly = true)
     public OptionDTO getOption(Long optionId) {
         Option option = optionRepository.findById(optionId)
                 .orElseThrow(() -> new IllegalArgumentException("질문을 찾을 수 없습니다"));
-        return qustionDto(option);
+        return optionDto(option);
     }
 
     @Transactional(readOnly = true)
     public List<OptionDTO> getOptionsByQuestion(Long questionId) {
         return optionRepository.findByQuestion_QuestionId(questionId).stream()
-                .map(this::qustionDto)
+                .map(this::optionDto)
                 .collect(Collectors.toList());
     }
 
@@ -66,7 +66,7 @@ public class OptionService {
         if (dto.getOptionContent() != null)
             option.setOptionContent(dto.getOptionContent());
 
-        return qustionDto(option);
+        return optionDto(option);
     }
 
     @Transactional
