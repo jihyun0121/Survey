@@ -1,6 +1,8 @@
 package com.survey.backend.services;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -18,5 +20,14 @@ public class StatisticService {
                 .map(a -> a.getQuestion().getForm().getFormId())
                 .distinct()
                 .toList();
+    }
+
+    public Map<String, Long> getDuplicateCount(Long questionId) {
+        return statisticRepository.findByQuestion_QuestionIdAndOptionIsNull(questionId).stream()
+                .map(a -> a.getAnswerText() != null ? a.getAnswerText().trim()
+                        : a.getAnswerLong() != null ? a.getAnswerLong().trim()
+                                : null)
+                .filter(text -> text != null && !text.isBlank())
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 }
