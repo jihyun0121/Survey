@@ -185,4 +185,13 @@ public class StatisticService {
 
         return codedRows;
     }
+
+    // 미구현
+    public String downloadExcel(Long formId) {
+        return "EXCEL FILE GENERATED FOR FORM " + formId;
+    }
+
+    public String downloadCSV(Long formId) {
+        return "CSV FILE GENERATED FOR FORM " + formId;
+    }
 }

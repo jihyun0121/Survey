@@ -57,4 +57,14 @@ public class StatisticController {
     public ResponseEntity<?> getCodedData(@PathVariable Long formId) {
         return ResponseEntity.ok(statisticService.getCodedData(formId));
     }
+
+    @GetMapping("/forms/{formId}/export/xls")
+    public ResponseEntity<?> downloadExcel(@PathVariable Long formId) {
+        return ResponseEntity.ok(statisticService.downloadExcel(formId));
+    }
+
+    @GetMapping("/forms/{formId}/export/csv")
+    public ResponseEntity<?> downloadCSV(@PathVariable Long formId) {
+        return ResponseEntity.ok(statisticService.downloadCSV(formId));
+    }
 }
