@@ -40,4 +40,10 @@ public class OptionController {
         OptionOrderDTO order = optionService.reorderOptions(dto);
         return ResponseEntity.ok(Map.of("message", "질문 순서 변경", "순서", order));
     }
+
+    @DeleteMapping("/{optionId}")
+    public ResponseEntity<?> deleteOption(@PathVariable Long optionId) {
+        optionService.deleteOption(optionId);
+        return ResponseEntity.ok(Map.of("message", "질문 삭제"));
+    }
 }

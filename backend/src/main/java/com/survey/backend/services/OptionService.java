@@ -93,4 +93,15 @@ public class OptionService {
                 .optionOrder(option.getOptionOrder())
                 .build();
     }
+
+    @Transactional
+    public void deleteOption(Long optionId) {
+        Option option = optionRepository.findById(optionId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 질문을 찾을 수 없습니다."));
+
+        Long questionId = option.getQuestion().getQuestionId();
+        Long deletedOrder = option.getOptionOrder();
+        optionRepository.delete(option);
+        optionRepository.shiftOrderAfterDelete(questionId, deletedOrder);
+    }
 }
