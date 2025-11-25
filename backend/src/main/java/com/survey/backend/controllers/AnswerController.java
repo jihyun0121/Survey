@@ -33,4 +33,10 @@ public class AnswerController {
         return ResponseEntity.ok(answers);
     }
 
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<?> deleteForm(@PathVariable Long userId) {
+        answerService.deleteAnswer(userId);
+        return ResponseEntity.ok(Map.of("message", "응답 삭제"));
+    }
+
 }
