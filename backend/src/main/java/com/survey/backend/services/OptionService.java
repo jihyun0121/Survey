@@ -1,6 +1,7 @@
 package com.survey.backend.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.survey.backend.dtos.OptionDTO;
 import com.survey.backend.entities.Question;
@@ -37,5 +38,12 @@ public class OptionService {
 
         Option saved = optionRepository.save(option);
         return qustionDto(saved);
+    }
+
+    @Transactional(readOnly = true)
+    public OptionDTO getOption(Long optionId) {
+        Option option = optionRepository.findById(optionId)
+                .orElseThrow(() -> new IllegalArgumentException("질문을 찾을 수 없습니다"));
+        return qustionDto(option);
     }
 }

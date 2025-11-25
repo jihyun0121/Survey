@@ -19,4 +19,10 @@ public class OptionController {
         OptionDTO created = optionService.createOption(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
+
+    @GetMapping("/{optionId}")
+    public ResponseEntity<?> getOption(@PathVariable Long optionId) {
+        OptionDTO option = optionService.getOption(optionId);
+        return ResponseEntity.ok(option);
+    }
 }
