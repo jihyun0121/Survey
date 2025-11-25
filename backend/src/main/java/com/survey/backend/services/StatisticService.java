@@ -123,4 +123,15 @@ public class StatisticService {
                 .filter(s -> !s.isBlank())
                 .toList();
     }
+
+    public Map<String, Object> streamLiveStats(Long formId) {
+        long totalAnswers = statisticRepository.findByQuestion_Form_FormId(formId).size();
+        long respondent = statisticRepository.countDistinctUserByFormId(formId);
+
+        return Map.of(
+                "form_id", formId,
+                "timestamp", System.currentTimeMillis(),
+                "respondent", respondent,
+                "total_answers", totalAnswers);
+    }
 }

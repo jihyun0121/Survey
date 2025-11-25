@@ -47,4 +47,9 @@ public class StatisticController {
     public ResponseEntity<?> getTextAnswers(@PathVariable Long questionId) {
         return ResponseEntity.ok(statisticService.getTextAnswers(questionId));
     }
+
+    @GetMapping("/forms/{formId}/live")
+    public ResponseEntity<?> streamLiveStats(@PathVariable Long formId) {
+        return ResponseEntity.ok(statisticService.streamLiveStats(formId));
+    }
 }
