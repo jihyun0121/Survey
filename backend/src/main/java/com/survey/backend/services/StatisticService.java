@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.survey.backend.entities.Answer;
 import com.survey.backend.repositories.StatisticRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -33,5 +34,20 @@ public class StatisticService {
 
     public long getAnswerCount(Long questionId) {
         return statisticRepository.countDistinctUserAnsweredQuestion(questionId);
+    }
+
+    public long getUnansweredCount(Long questionId) {
+        List<Answer> answers = statisticRepository.findByQuestion_QuestionId(questionId);
+
+        if (answers.isEmpty()) {
+            return 0L;
+        }
+
+        Long formId = answers.get(0).getQuestion().getForm().getFormId();
+
+        long totalrespondent = statisticRepository.countDistinctUserByFormId(formId);
+        long answered = statisticRepository.countDistinctUserAnsweredQuestion(questionId);
+
+        return Math.max(totalrespondent - answered, 0L);
     }
 }
