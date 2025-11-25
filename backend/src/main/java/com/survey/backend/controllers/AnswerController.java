@@ -17,6 +17,11 @@ public class AnswerController {
     public ResponseEntity<?> saveAnswers(@RequestBody AnswerDTO dto) {
         AnswerDTO save = answerService.saveAnswers(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(save);
+    }
 
+    @GetMapping("/{answerId}")
+    public ResponseEntity<?> getAnswer(@PathVariable Long answerId) {
+        AnswerDTO answer = answerService.getAnswer(answerId);
+        return ResponseEntity.ok(answer);
     }
 }
