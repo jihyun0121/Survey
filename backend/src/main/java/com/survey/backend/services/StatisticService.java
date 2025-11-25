@@ -30,4 +30,8 @@ public class StatisticService {
                 .filter(text -> text != null && !text.isBlank())
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
+
+    public long getAnswerCount(Long questionId) {
+        return statisticRepository.countDistinctUserAnsweredQuestion(questionId);
+    }
 }

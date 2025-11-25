@@ -17,4 +17,9 @@ public class StatisticController {
     public ResponseEntity<?> getDuplicateCount(@PathVariable Long questionId) {
         return ResponseEntity.ok(statisticService.getDuplicateCount(questionId));
     }
+
+    @GetMapping("/questions/{questionId}/count")
+    public ResponseEntity<?> getAnswerCount(@PathVariable Long questionId) {
+        return ResponseEntity.ok(statisticService.getAnswerCount(questionId));
+    }
 }
