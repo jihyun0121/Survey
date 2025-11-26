@@ -34,7 +34,7 @@ api.interceptors.response.use(
 export const UserAPI = {
     createUser: (dto) => api.post(`/users/signup`, dto),
     loginUser: (dto) => api.post(`/users/login`, dto),
-    oauthLogin: (code) => api.post(`/auth/login/google`, code),
+    oauthLogin: (code) => api.get(`/auth/login/google`, { params: { code } }),
     getUserInfo: (userId) => api.get(`/users/${userId}`),
 };
 
