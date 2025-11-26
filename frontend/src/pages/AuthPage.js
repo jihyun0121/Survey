@@ -19,7 +19,7 @@ export default function AuthPage() {
     }, []);
 
     async function handleLogin() {
-        if (!loginEmail || !loginPassword) return alert("이메일과 비밀번호를 입력하세요.");
+        if (!loginEmail || !loginPassword) return alert("이메일과 비밀번호를 입력하세요");
         setLoading(true);
 
         try {
@@ -31,7 +31,7 @@ export default function AuthPage() {
             const token = res.data.token;
             localStorage.setItem("token", token);
 
-            alert("로그인 성공!");
+            alert("로그인 성공");
             window.location.href = "/";
         } catch (e) {
             alert(e.response?.data?.error || "로그인 실패");
@@ -41,7 +41,7 @@ export default function AuthPage() {
     }
 
     async function handleSignup() {
-        if (!signupEmail || !signupPassword) return alert("모든 항목을 입력해주세요.");
+        if (!signupEmail || !signupPassword) return alert("모든 항목을 입력해주세요");
         setLoading(true);
 
         try {
@@ -50,7 +50,7 @@ export default function AuthPage() {
                 user_password: signupPassword,
             });
 
-            alert("회원가입 성공! 로그인 해주세요.");
+            alert("회원가입 성공");
             setPage("login");
         } catch (e) {
             alert(e.response?.data?.error || "회원가입 실패");
@@ -61,7 +61,7 @@ export default function AuthPage() {
 
     function redirectGoogleLogin() {
         const CLIENT_ID = "697397970424-93p03sqlv7072iss0b9j661ap8tuvf25.apps.googleusercontent.com";
-        const REDIRECT_URI = "http://localhost:8080/auth/login/google";
+        const REDIRECT_URI = "http://localhost:3000/";
         const googleAuthURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=email%20profile`;
 
         window.location.href = googleAuthURL;
@@ -75,7 +75,7 @@ export default function AuthPage() {
 
             localStorage.setItem("token", token);
 
-            alert("구글 로그인 성공!");
+            alert("구글 로그인 성공");
             window.location.href = "/";
         } catch (error) {
             alert("구글 로그인 실패");
@@ -101,16 +101,16 @@ export default function AuthPage() {
 
                     <div className="mb-3">
                         <label className="form-label">이메일</label>
-                        <input type="email" className="form-control" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="example@email.com" />
+                        <input type="email" className="form-control" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="이메일을 입력해주세요" />
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label">비밀번호</label>
-                        <input type="password" className="form-control" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} placeholder="••••••••" />
+                        <input type="password" className="form-control" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} placeholder="비밀번호를 입력해주세요" />
                     </div>
 
                     <button className="btn btn-primary w-100 mb-2" onClick={handleLogin} disabled={loading}>
-                        {loading ? "로그인 중..." : "로그인"}
+                        {loading ? "로그인 중..." : "이메일로 로그인"}
                     </button>
 
                     <button className="btn btn-outline-danger w-100" onClick={redirectGoogleLogin}>
@@ -125,16 +125,16 @@ export default function AuthPage() {
 
                     <div className="mb-3">
                         <label className="form-label">이메일</label>
-                        <input type="email" className="form-control" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} />
+                        <input type="email" className="form-control" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} placeholder="이메일을 입력해주세요" />
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label">비밀번호</label>
-                        <input type="password" className="form-control" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} />
+                        <input type="password" className="form-control" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} placeholder="비밀번호를 입력해주세요" />
                     </div>
 
                     <button className="btn btn-success w-100 mb-2" onClick={handleSignup} disabled={loading}>
-                        {loading ? "회원가입 중..." : "회원가입"}
+                        {loading ? "회원가입 중..." : "이메일로 회원가입"}
                     </button>
 
                     <button className="btn btn-outline-danger w-100" onClick={redirectGoogleLogin}>
