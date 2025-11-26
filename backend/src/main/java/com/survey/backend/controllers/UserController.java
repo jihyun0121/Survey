@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<?> getProfile(@PathVariable("userId") Long userId) {
+    public ResponseEntity<?> getProfile(@PathVariable Long userId) {
         try {
             UserDTO user = userService.getProfile(userId);
             return ResponseEntity.ok(user);

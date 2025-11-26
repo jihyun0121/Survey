@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import * as API from "../api";
+import { useState, useEffect } from "react";
+import { UserAPI } from "../api/api";
 
-function AuthPage() {
-    const [tab, setTab] = useState("login");
+export default function AuthPage() {
+    const [page, setPage] = useState("login");
+    const [loading, setLoading] = useState(false);
 
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
@@ -11,151 +12,136 @@ function AuthPage() {
     const [signupPassword, setSignupPassword] = useState("");
 
     useEffect(() => {
-        const hash = window.location.hash.replace("#", "");
-        setTab(hash === "signup" ? "signup" : "login");
+        const url = new URL(window.location.href);
+        const code = url.searchParams.get("code");
+
+        if (code) handleGoogleLogin(code);
     }, []);
 
-    const changeTab = (name) => {
-        window.location.hash = name;
-        setTab(name);
-    };
-
-    const handleLogin = async () => {
-        if (!loginEmail || !loginPassword) {
-            alert("이메일과 비밀번호를 입력하세요.");
-            return;
-        }
+    async function handleLogin() {
+        if (!loginEmail || !loginPassword) return alert("이메일과 비밀번호를 입력하세요.");
+        setLoading(true);
 
         try {
-            const res = await API.loginUser({
-                email: loginEmail,
-                password: loginPassword,
+            const res = await UserAPI.loginUser({
+                user_email: loginEmail,
+                user_password: loginPassword,
             });
 
             const token = res.data.token;
-            if (!token) {
-                alert("서버 응답 오류: 토큰 없음");
-                return;
-            }
-
             localStorage.setItem("token", token);
 
             alert("로그인 성공!");
-
             window.location.href = "/";
-        } catch (err) {
-            console.error("로그인 실패:", err);
-            alert(err.response?.data?.error || "로그인 실패");
+        } catch (e) {
+            alert(e.response?.data?.error || "로그인 실패");
+        } finally {
+            setLoading(false);
         }
-    };
+    }
 
-    const handleSignup = async () => {
+    async function handleSignup() {
         if (!signupEmail || !signupPassword) return alert("모든 항목을 입력해주세요.");
+        setLoading(true);
 
         try {
-            await API.createUser({
-                email: signupEmail,
-                password: signupPassword,
+            await UserAPI.createUser({
+                user_email: signupEmail,
+                user_password: signupPassword,
             });
 
-            alert("회원가입 성공! 로그인해주세요.");
-            changeTab("login");
-        } catch (err) {
-            console.error(err);
-            alert(err.response?.data?.error || "회원가입 실패");
+            alert("회원가입 성공! 로그인 해주세요.");
+            setPage("login");
+        } catch (e) {
+            alert(e.response?.data?.error || "회원가입 실패");
+        } finally {
+            setLoading(false);
         }
-    };
+    }
 
-    const CLIENT_ID = "697397970424-93p03sqlv7072iss0b9j661ap8tuvf25.apps.googleusercontent.com";
-    const REDIRECT_URI = "http://localhost:8080/auth/login/google";
+    function redirectGoogleLogin() {
+        const CLIENT_ID = "697397970424-93p03sqlv7072iss0b9j661ap8tuvf25.apps.googleusercontent.com";
+        const REDIRECT_URI = "http://localhost:8080/auth/login/google";
+        const googleAuthURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=email%20profile`;
 
-    const handleGoogleLogin = () => {
-        window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=email profile&access_type=offline&prompt=consent`;
-    };
+        window.location.href = googleAuthURL;
+    }
 
-    useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        const code = params.get("code");
+    async function handleGoogleLogin(code) {
+        setLoading(true);
+        try {
+            const res = await UserAPI.oauthLogin({ code });
+            const token = res.data.token;
 
-        if (code) {
-            API.oauthLogin(code)
-                .then((res) => {
-                    const token = res.data.token;
-                    localStorage.setItem("token", token);
-                    alert("구글 로그인 성공!");
-                    window.location.href = "/";
-                })
-                .catch((err) => {
-                    console.error(err);
-                    alert("구글 로그인 실패");
-                });
+            localStorage.setItem("token", token);
+
+            alert("구글 로그인 성공!");
+            window.location.href = "/";
+        } catch (error) {
+            alert("구글 로그인 실패");
+        } finally {
+            setLoading(false);
         }
-    }, []);
+    }
 
     return (
-        <div className="bg-light" style={{ minHeight: "100vh" }}>
-            <nav className="navbar navbar-light bg-white border-bottom px-3">
-                <a href="/" className="navbar-brand fw-bold">
-                    Form Builder
-                </a>
-            </nav>
+        <div className="container" style={{ maxWidth: 420, paddingTop: 60 }}>
+            <div className="d-flex justify-content-center mb-4">
+                <button className={`btn btn-link ${page === "login" ? "fw-bold" : ""}`} onClick={() => setPage("login")}>
+                    로그인
+                </button>
+                <button className={`btn btn-link ${page === "signup" ? "fw-bold" : ""}`} onClick={() => setPage("signup")}>
+                    회원가입
+                </button>
+            </div>
 
-            <main className="container" style={{ maxWidth: "420px", paddingTop: "60px" }}>
-                <div className="d-flex justify-content-center mb-4">
-                    <button className={`btn btn-link tab-btn ${tab === "login" ? "fw-bold" : ""}`} onClick={() => changeTab("login")}>
-                        로그인
+            {page === "login" && (
+                <div className="card p-4 shadow-sm">
+                    <h4 className="fw-bold mb-3">로그인</h4>
+
+                    <div className="mb-3">
+                        <label className="form-label">이메일</label>
+                        <input type="email" className="form-control" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="example@email.com" />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">비밀번호</label>
+                        <input type="password" className="form-control" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} placeholder="••••••••" />
+                    </div>
+
+                    <button className="btn btn-primary w-100 mb-2" onClick={handleLogin} disabled={loading}>
+                        {loading ? "로그인 중..." : "로그인"}
                     </button>
-                    <button className={`btn btn-link tab-btn ${tab === "signup" ? "fw-bold" : ""}`} onClick={() => changeTab("signup")}>
-                        회원가입
+
+                    <button className="btn btn-outline-danger w-100" onClick={redirectGoogleLogin}>
+                        <i className="bi bi-google me-2"></i> 구글 계정으로 로그인
                     </button>
                 </div>
+            )}
 
-                {tab === "login" && (
-                    <div className="card p-4 shadow-sm">
-                        <h4 className="fw-bold mb-3">로그인</h4>
+            {page === "signup" && (
+                <div className="card p-4 shadow-sm">
+                    <h4 className="fw-bold mb-3">회원가입</h4>
 
-                        <div className="mb-3">
-                            <label className="form-label">이메일</label>
-                            <input type="email" className="form-control" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="email@example.com" />
-                        </div>
-
-                        <div className="mb-3">
-                            <label className="form-label">비밀번호</label>
-                            <input type="password" className="form-control" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} placeholder="••••••••" />
-                        </div>
-
-                        <button className="btn btn-primary w-100" onClick={handleLogin}>
-                            로그인
-                        </button>
-
-                        <button className="btn btn-danger w-100 mt-3" onClick={handleGoogleLogin}>
-                            <i className="bi bi-google me-2"></i> Google 로그인
-                        </button>
+                    <div className="mb-3">
+                        <label className="form-label">이메일</label>
+                        <input type="email" className="form-control" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} />
                     </div>
-                )}
 
-                {tab === "signup" && (
-                    <div className="card p-4 shadow-sm">
-                        <h4 className="fw-bold mb-3">회원가입</h4>
-
-                        <div className="mb-3">
-                            <label className="form-label">이메일</label>
-                            <input type="email" className="form-control" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} placeholder="email@example.com" />
-                        </div>
-
-                        <div className="mb-3">
-                            <label className="form-label">비밀번호</label>
-                            <input type="password" className="form-control" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} placeholder="비밀번호" />
-                        </div>
-
-                        <button className="btn btn-success w-100" onClick={handleSignup}>
-                            회원가입
-                        </button>
+                    <div className="mb-3">
+                        <label className="form-label">비밀번호</label>
+                        <input type="password" className="form-control" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} />
                     </div>
-                )}
-            </main>
+
+                    <button className="btn btn-success w-100 mb-2" onClick={handleSignup} disabled={loading}>
+                        {loading ? "회원가입 중..." : "회원가입"}
+                    </button>
+
+                    <button className="btn btn-outline-danger w-100" onClick={redirectGoogleLogin}>
+                        <i className="bi bi-google me-2"></i> 구글 계정으로 회원가입
+                    </button>
+                </div>
+            )}
         </div>
     );
 }
-
-export default AuthPage;
