@@ -24,12 +24,12 @@ public class Form {
     @JsonProperty("form_id")
     private Long formId;
 
-    @Column(name = "form_title", nullable = false, length = 50)
-    @JsonProperty("form_title")
+    @Column(name = "title", nullable = false, length = 50)
+    @JsonProperty("title")
     private String title;
 
-    @Column(name = "form_description")
-    @JsonProperty("form_description")
+    @Column(name = "description")
+    @JsonProperty("description")
     private String description;
 
     @Column(name = "is_public", nullable = false)

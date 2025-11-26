@@ -15,10 +15,10 @@ public class FormDTO {
     @JsonProperty("form_id")
     private Long formId;
 
-    @JsonProperty("form_title")
+    @JsonProperty("title")
     private String title;
 
-    @JsonProperty("form_description")
+    @JsonProperty("description")
     private String description;
 
     @JsonProperty("is_public")
