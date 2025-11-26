@@ -64,4 +64,14 @@ public class UserService {
                 .createdAt(user.getCreatedAt())
                 .build();
     }
+
+    public User findByEmail(UserAuthDTO dto) {
+        User user = userRepository.findByEmail(dto.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다"));
+
+        return User.builder()
+                .userId(user.getUserId())
+                .email(user.getEmail())
+                .build();
+    }
 }

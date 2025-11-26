@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.survey.backend.dtos.UserAuthDTO;
 import com.survey.backend.dtos.UserDTO;
+import com.survey.backend.entities.User;
 import com.survey.backend.services.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,12 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserAuthDTO dto) {
+        User user = userService.findByEmail(dto);
         String token = userService.login(dto);
-        return ResponseEntity.ok(Map.of("token", token));
+        return ResponseEntity.ok(Map.of(
+                "token", token,
+                "user_id", user.getUserId(),
+                "email", user.getEmail()));
     }
 
     @GetMapping("/{userId}")

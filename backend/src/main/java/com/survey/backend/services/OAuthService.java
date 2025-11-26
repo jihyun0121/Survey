@@ -1,5 +1,7 @@
 package com.survey.backend.services;
 
+import java.util.Map;
+
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,16 +28,22 @@ public class OAuthService {
     private final UserRepository userRepository;
     private final JWToken jwToken;
 
-    public String loginWithGoogle(String code) {
+    public Map<String, Object> loginWithGoogle(String code) {
         String accessToken = requestAccessToken(code);
         GoogleResourceDTO profile = requestUserInfo(accessToken);
+
         User user = userRepository.findByEmail(profile.getEmail())
                 .orElseGet(() -> registerOAuthUser(profile));
 
-        return jwToken.createToken(
+        String token = jwToken.createToken(
                 user.getUserId(),
                 user.getEmail(),
                 user.getAuthProvider());
+
+        return Map.of(
+                "token", token,
+                "user_id", user.getUserId(),
+                "email", user.getEmail());
     }
 
     private String requestAccessToken(String code) {

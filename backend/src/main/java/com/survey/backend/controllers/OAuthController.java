@@ -16,8 +16,7 @@ public class OAuthController {
 
     @GetMapping("/auth/login/google")
     public ResponseEntity<?> googleCallback(@RequestParam String code) {
-        String jwtToken = oAuthService.loginWithGoogle(code);
-        return ResponseEntity.ok(
-                Map.of("message", "구글 로그인 성공", "token", jwtToken));
+        Map<String, Object> result = oAuthService.loginWithGoogle(code);
+        return ResponseEntity.ok(result);
     }
 }
