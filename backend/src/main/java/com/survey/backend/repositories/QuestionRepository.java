@@ -10,7 +10,7 @@ import com.survey.backend.entities.Question;
 
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
-    List<Question> findByForm_FormId(Long formId);
+    List<Question> findByForm_FormIdOrderByQuestionOrderAsc(Long formId);
 
     @Modifying
     @Query("UPDATE Question q SET q.questionOrder = q.questionOrder - 1 WHERE q.form.formId = :formId AND q.questionOrder > :oldOrder AND q.questionOrder <= :newOrder")

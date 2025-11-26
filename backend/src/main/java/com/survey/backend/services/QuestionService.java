@@ -59,7 +59,7 @@ public class QuestionService {
 
     @Transactional(readOnly = true)
     public List<QuestionDTO> getQuestionsByForm(Long formId) {
-        return questionRepository.findByForm_FormId(formId).stream()
+        return questionRepository.findByForm_FormIdOrderByQuestionOrderAsc(formId).stream()
                 .map(this::qustionDto)
                 .collect(Collectors.toList());
     }

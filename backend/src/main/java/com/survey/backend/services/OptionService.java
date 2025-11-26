@@ -53,7 +53,7 @@ public class OptionService {
 
     @Transactional(readOnly = true)
     public List<OptionDTO> getOptionsByQuestion(Long questionId) {
-        return optionRepository.findByQuestion_QuestionId(questionId).stream()
+        return optionRepository.findByQuestion_QuestionIdOrderByOptionOrderAsc(questionId).stream()
                 .map(this::optionDto)
                 .collect(Collectors.toList());
     }
