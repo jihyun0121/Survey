@@ -7,10 +7,25 @@
     font-size: 14px;
 }
 
+.form-input-option {
+    padding-bottom: 4px;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+}
+
 .input-wrapper {
     position: relative;
     width: 100%;
     border-bottom: 2px solid transparent;
+}
+
+.option-wrapper {
+    position: relative;
+    width: 80%;
+    border-bottom: 2px solid transparent;
+
 }
 
 .block-card:focus-within .input-wrapper,
@@ -18,7 +33,8 @@
     border-bottom-color: rgba(0, 0, 0, 0.12);
 }
 
-.input-wrapper::after {
+.input-wrapper::after,
+.option-wrapper::after {
     content: "";
     position: absolute;
     bottom: -2px;
@@ -32,11 +48,13 @@
     transition: transform 0.25s ease;
 }
 
-.input-wrapper:focus-within::after {
+.input-wrapper:focus-within::after,
+.option-wrapper:focus-within::after {
     transform: translateX(-50%) scaleX(1);
 }
 
-.form-input-base::placeholder {
+.form-input-base::placeholder,
+.form-input-option::placeholder {
     color: #aaa;
 }
 
@@ -62,8 +80,48 @@
 
 .form-select {
     width: 223px;
+    height: 53px;
 }
 
 .form-select:focus {
     box-shadow: none;
+}
+
+.fake-option-input {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #666;
+    border-radius: 50%;
+    background: #fff;
+    cursor: default;
+    pointer-events: none;
+    position: relative;
+}
+
+.fake-option-input[type="checkbox"] {
+    border-radius: 3px;
+}
+
+.fake-option-input[type="radio"]::after,
+.fake-option-input[type="checkbox"]::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 8px;
+    height: 8px;
+    background: #673ab7;
+    display: none;
+    border-radius: inherit;
+}
+
+.fake-option-input:checked::after {
+    display: block;
+}
+
+.bg-gr {
+    background-color: rgb(248, 249, 250);
+    padding: 16px;
 }
