@@ -1,0 +1,12 @@
+.navbar-brand i {
+    font-size: 24px;
+}
+
+.icon-btn i {
+    font-size: 20px;
+}
+
+.drag-handle i {
+    line-height: 0;
+    font-size: 20px;
+}
