@@ -19,6 +19,22 @@ export default function QuestionItem({ question, onLocalChange, onDelete }) {
         }
     }
 
+    function handleQuestionChange(value) {
+        const updated = { ...local, question_content: value };
+        setLocal(updated);
+        onLocalChange(local.question_id, { question_content: value });
+    }
+
+    async function handleQuestionBlur() {
+        try {
+            await QuestionAPI.updateQuestion(local.question_id, {
+                question_content: local.question_content,
+            });
+        } catch (e) {
+            alert("질문 저장 실패");
+        }
+    }
+
     function updateField(field, value) {
         const updated = { ...local, [field]: value };
         setLocal(updated);
@@ -39,7 +55,7 @@ export default function QuestionItem({ question, onLocalChange, onDelete }) {
                 <div className="question-left flex-grow-1">
                     <div className="editor-wrapper mb-1">
                         <div className="input-wrapper">
-                            <input type="text" className="form-input-base bg-gr" value={local.question_content || ""} placeholder="질문 입력" onChange={(e) => updateField("question_content", e.target.value)} />
+                            <input type="text" className="form-input-base bg-gr" value={local.question_content || ""} placeholder="질문 입력" onChange={(e) => handleQuestionChange(e.target.value)} onBlur={handleQuestionBlur} />
                         </div>
                     </div>
                 </div>
