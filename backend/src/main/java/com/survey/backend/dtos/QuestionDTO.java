@@ -16,9 +16,6 @@ public class QuestionDTO {
     @JsonProperty("form_id")
     private Long formId;
 
-    @JsonProperty("question_name")
-    private String questionName;
-
     @JsonProperty("question_content")
     private String questionContent;
 

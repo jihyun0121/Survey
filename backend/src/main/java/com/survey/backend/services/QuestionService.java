@@ -26,7 +26,6 @@ public class QuestionService {
         return QuestionDTO.builder()
                 .questionId(q.getQuestionId())
                 .formId(q.getForm().getFormId())
-                .questionName(q.getQuestionName())
                 .questionContent(q.getQuestionContent())
                 .questionType(q.getQuestionType())
                 .isRequired(q.getIsRequired())
@@ -39,7 +38,6 @@ public class QuestionService {
                 .orElseThrow(() -> new IllegalArgumentException("설문을 찾을 수 없습니다"));
 
         Question question = Question.builder()
-                .questionName(dto.getQuestionName())
                 .questionContent(dto.getQuestionContent())
                 .questionType(dto.getQuestionType())
                 .form(form)
@@ -69,8 +67,6 @@ public class QuestionService {
         Question question = questionRepository.findById(questionId)
                 .orElseThrow(() -> new IllegalArgumentException("질문을 찾을 수 없습니다"));
 
-        if (dto.getQuestionName() != null)
-            question.setQuestionName(dto.getQuestionName());
         if (dto.getQuestionContent() != null)
             question.setQuestionContent(dto.getQuestionContent());
         if (dto.getQuestionType() != null)

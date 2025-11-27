@@ -25,10 +25,6 @@ public class Question {
     @JsonIgnore
     private Form form;
 
-    @Column(name = "question_name", nullable = false, length = 50)
-    @JsonProperty("question_name")
-    private String questionName;
-
     @Column(name = "question_content", nullable = false)
     @JsonProperty("question_content")
     private String questionContent;
