@@ -1,5 +1,6 @@
 package com.survey.backend.services;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -58,7 +59,7 @@ public class FormService {
 
     @Transactional(readOnly = true)
     public List<FormDTO> getFormsByUser(Long userId) {
-        return formRepository.findByUser_UserId(userId).stream()
+        return formRepository.findByUser_UserIdOrderByUpdatedAtDesc(userId).stream()
                 .map(this::formDto)
                 .collect(Collectors.toList());
     }
@@ -72,6 +73,7 @@ public class FormService {
             form.setTitle(dto.getTitle());
         if (dto.getDescription() != null)
             form.setDescription(dto.getDescription());
+        form.setUpdatedAt(LocalDateTime.now());
 
         return formDto(form);
     }

@@ -9,5 +9,5 @@ import com.survey.backend.entities.Form;
 
 @Repository
 public interface FormRepository extends JpaRepository<Form, Long> {
-    List<Form> findByUser_UserId(Long userId);
+    List<Form> findByUser_UserIdOrderByUpdatedAtDesc(Long userId);
 }
