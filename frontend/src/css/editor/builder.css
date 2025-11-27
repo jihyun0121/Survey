@@ -1,0 +1,49 @@
+.title-section {
+    margin-bottom: 12px;
+}
+
+.editable-input[contenteditable="true"]:empty:before {
+    content: attr(data-placeholder);
+    color: #aaa;
+    pointer-events: none;
+}
+
+.block-question-card,
+.block-card {
+    border-bottom: none;
+    border-radius: 8px;
+    transition: 0.15s;
+    border: 1px solid rgb(218, 220, 224);
+    margin-bottom: 12px;
+}
+
+.block-card {
+    border-top: 10px solid #673ab7;
+}
+
+.block-question-card:focus-within,
+.block-card:focus-within {
+    box-shadow:
+        0 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0 1px 1px 0 rgba(0, 0, 0, 0.14),
+        0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+.question-header {
+    min-width: 720px;
+    padding: 0px 24px 0px 24px;
+}
+
+.question-left {
+    max-width: 450px;
+}
+
+.question-right {
+    width: 30%;
+    margin-left: 24px;
+}
+
+.question-footer {
+    margin: 0px 24px 0px 24px;
+    padding-bottom: 12px;
+}

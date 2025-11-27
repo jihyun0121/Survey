@@ -1,0 +1,22 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
+.builder-container {
+    background: #f0ebf8;
+    padding-top: 80px;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+.builder-wrapper {
+    width: 100%;
+    max-width: 770px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.question-list {
+    display: flex;
+    flex-direction: column;
+}
