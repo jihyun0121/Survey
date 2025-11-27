@@ -10,7 +10,10 @@ export default function Home() {
     const [errorMsg, setErrorMsg] = useState("");
 
     useEffect(() => {
-        loadForms();
+        const uid = localStorage.getItem("user_id");
+
+        if (uid && uid !== "undefined") loadForms();
+        else window.location.href = "/auth";
     }, []);
 
     const loadForms = async () => {
