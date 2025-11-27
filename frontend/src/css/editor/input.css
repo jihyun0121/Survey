@@ -1,0 +1,69 @@
+.form-input-base {
+    width: 100%;
+    padding-bottom: 4px;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+    border-bottom: 2px solid transparent;
+}
+
+.block-card:focus-within .input-wrapper,
+.block-question-card:focus-within .input-wrapper {
+    border-bottom-color: rgba(0, 0, 0, 0.12);
+}
+
+.input-wrapper::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: #673ab7;
+
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    transition: transform 0.25s ease;
+}
+
+.input-wrapper:focus-within::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+.form-input-base::placeholder {
+    color: #aaa;
+}
+
+[contenteditable="true"] {
+    min-height: 28px;
+    cursor: text;
+}
+
+[contenteditable="true"][data-placeholder]:empty:before {
+    content: attr(data-placeholder);
+    color: #aaa;
+    pointer-events: none;
+}
+
+[contenteditable="true"]:not(:empty):before {
+    content: none;
+}
+
+.form-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.form-select {
+    width: 223px;
+}
+
+.form-select:focus {
+    box-shadow: none;
+}
