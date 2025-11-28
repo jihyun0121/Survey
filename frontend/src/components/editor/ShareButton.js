@@ -5,7 +5,7 @@ export default function ShareButton({ formId }) {
 
     useEffect(() => {
         if (!formId) return;
-        const answerUrl = `${window.location.origin}/answer/${formId}`;
+        const answerUrl = `${window.location.origin}/forms/answer/${formId}`;
         setUrl(answerUrl);
     }, [formId]);
 
