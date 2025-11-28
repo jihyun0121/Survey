@@ -1,0 +1,141 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
+.answer-container {
+    background: #e7ecee;
+    padding-top: 12px;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+.answer-wrapper {
+    width: 100%;
+    max-width: 770px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.answer-header {
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid rgb(218, 220, 224);
+    border-top: 10px solid #607d8b;
+    padding: 24px;
+    margin-bottom: 12px;
+}
+
+.answer-header h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.answer-header p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 12px;
+}
+
+.answer-check-input:checked {
+    background-color: #607d8b;
+    border-color: #607d8b;
+}
+
+.section-block {
+    margin-bottom: 12px;
+    display: none;
+}
+
+.section-block.active {
+    display: block;
+}
+
+.section-block h5 {
+    background: #607d8b;
+    border-radius: 8px;
+    color: #fff;
+    padding: 12px 24px;
+}
+
+.question-block {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid rgb(218, 220, 224);
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+.question-block .fw-semibold {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.question-block .answer-check-label {
+    font-size: 14px;
+}
+
+.question-block input[type="text"],
+.question-block textarea,
+.question-block select {
+    border-radius: 4px;
+    border: 1px solid rgb(218, 220, 224);
+    padding: 8px 12px;
+    font-size: 15px;
+}
+
+/* .answer-check {
+    margin-bottom: 6px;
+}
+
+.answer-check-input:focus {
+    box-shadow: none;
+    background-color: #607d8b;
+}
+
+.answer-input-base:focus {
+    box-shadow: none;
+} */
+
+.navigation-area {
+    padding: 10px;
+}
+
+#prevBtn,
+#nextBtn {
+    background: #fff;
+    min-width: 120px;
+    height: 40px;
+    font-size: 14px;
+}
+
+#prevBtn {
+    border: 1px solid rgb(218, 220, 224);
+}
+
+#nextBtn {
+    background: #607d8b;
+    border-color: #607d8b;
+}
+
+.question-card {
+    background: white;
+    border: 1px solid rgb(218, 220, 224);
+    border-top: 10px solid #607d8b;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 12px;
+}
+
+.question-card .fw-semibold {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.question-card input,
+.question-card textarea,
+.question-card select {
+    border-radius: 4px;
+    border: 1px solid rgb(218, 220, 224);
+    padding: 10px;
+}
