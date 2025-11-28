@@ -7,6 +7,23 @@
     font-size: 14px;
 }
 
+textarea.form-input-base {
+    line-height: 1.5;
+    resize: none;
+    box-sizing: border-box;
+    display: block;
+    /* align-content: center; */
+}
+
+.bg-gr {
+    height: 100%;
+    background-color: rgb(248, 249, 250);
+    padding: 16px;
+    display: block;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
 .form-input-option {
     /* padding-bottom: 4px; */
     width: 100%;
@@ -21,6 +38,7 @@
     position: relative;
     width: 100%;
     border-bottom: 2px solid transparent;
+    white-space: pre-wrap;
 }
 
 .option-wrapper {
@@ -150,9 +168,4 @@
 
 .fake-option-input:checked::after {
     display: block;
-}
-
-.bg-gr {
-    background-color: rgb(248, 249, 250);
-    padding: 16px;
 }

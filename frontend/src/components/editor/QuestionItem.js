@@ -17,6 +17,12 @@ export default function QuestionItem({ question, onLocalChange, onDelete, autoFo
     }, [question.question_id]);
 
     useEffect(() => {
+        if (inputRef.current) {
+            autoResize(inputRef.current);
+        }
+    }, [local.question_content]);
+
+    useEffect(() => {
         if (autoFocus && inputRef.current) {
             inputRef.current.focus();
         }
@@ -119,18 +125,38 @@ export default function QuestionItem({ question, onLocalChange, onDelete, autoFo
         setOptions(newList);
     }
 
+    function autoResize(el) {
+        if (!el) return;
+        el.style.height = "auto";
+        el.style.height = el.scrollHeight + "px";
+    }
+
     return (
         <div className="card block-question-card">
             <span className="drag-handle">
                 <i className="bi bi-three-dots"></i>
             </span>
 
-            <div className="question-header d-flex align-items-start">
+            <div className="question-header">
                 <div className="question-left flex-grow-1">
-                    <div className="editor-wrapper mb-1">
-                        <div className="input-wrapper">
-                            <input ref={inputRef} type="text" className="form-input-base bg-gr" value={local.question_content || ""} placeholder="질문 입력" onChange={(e) => handleQuestionChange(e.target.value)} onBlur={handleQuestionBlur} />
-                        </div>
+                    <div className="input-wrapper mb-1">
+                        <textarea
+                            ref={inputRef}
+                            className="form-input-base bg-gr"
+                            value={local.question_content || ""}
+                            placeholder="질문 입력"
+                            onChange={(e) => {
+                                handleQuestionChange(e.target.value);
+                                autoResize(e.target);
+                            }}
+                            onInput={(e) => autoResize(e.target)}
+                            onBlur={handleQuestionBlur}
+                            rows={1}
+                        />
+
+                        {/* <div ref={inputRef} className="form-input-base bg-gr editable" contentEditable={true} data-placeholder="질문 입력" onInput={handleEditableInput} onBlur={handleQuestionBlur} suppressContentEditableWarning={true}>
+                                {local.question_content || ""}
+                            </div> */}
                     </div>
                 </div>
 

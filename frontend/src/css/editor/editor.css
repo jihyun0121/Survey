@@ -16,6 +16,25 @@
     position: relative;
 }
 
+.builder-header {
+    display: flex;
+    justify-content: space-between;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2000;
+    padding: 0 16px;
+}
+
+.builder-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 270px;
+}
+
 .question-list {
     display: flex;
     flex-direction: column;

@@ -30,8 +30,9 @@
 }
 
 .question-header {
-    min-width: 720px;
     padding: 0px 24px 0px 24px;
+    display: flex;
+    align-items: flex-start;
 }
 
 .question-left {
