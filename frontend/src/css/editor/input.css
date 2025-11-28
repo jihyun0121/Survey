@@ -91,6 +91,32 @@
     border-color: #673ab7;
 }
 
+.form-check-input {
+    opacity: 100;
+}
+
+.form-check-input:focus {
+    box-shadow: none;
+    border-color: #673ab7;
+}
+
+.form-check-input:disabled {
+    opacity: 100;
+    box-shadow: none;
+}
+
+.form-check-input:checked {
+    background-color: #673ab7;
+    border-color: #673ab7;
+    box-shadow: none;
+}
+
+.form-check-input:disabled~.form-check-label,
+.form-check-input[disabled]~.form-check-label {
+    cursor: default;
+    opacity: 100;
+}
+
 .fake-option-input {
     appearance: none !important;
     -webkit-appearance: none !important;

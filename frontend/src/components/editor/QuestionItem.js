@@ -146,7 +146,7 @@ export default function QuestionItem({ question, onLocalChange, onDelete, autoFo
 
             {(local.question_type === "RADIO" || local.question_type === "CHECKBOX") && <QuestionOptionEditor options={options} questionId={local.question_id} type={local.question_type} onOptionsChange={updateOptionList} />}
 
-            <Setting isRequired={local.is_required} onToggleRequired={(value) => updateField("is_required", value)} onDelete={() => onDelete(local.question_id)} />
+            <Setting questionId={local.question_id} isRequired={local.is_required} onToggleRequired={(value) => updateField("is_required", value)} onDelete={() => onDelete(local.question_id)} />
         </div>
     );
 }

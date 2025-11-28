@@ -52,7 +52,9 @@ export const QuestionAPI = {
     getQuestion: (questionId) => api.get(`/questions/${questionId}`),
     getQuestionsByForm: (formId) => api.get(`/forms/${formId}/questions`),
     updateQuestion: (questionId, dto) => api.put(`/questions/${questionId}`, dto),
-    setRequired: (questionId, isRequired) => api.patch(`/questions/${questionId}/required`, isRequired),
+    setRequired(questionId, isRequired) {
+        return api.patch(`/questions/${questionId}/required?isRequired=${isRequired}`);
+    },
     reorderQuestions: (dto) => api.patch(`/questions/order`, dto),
     deleteQuestion: (questionId) => api.delete(`/questions/${questionId}`),
 
