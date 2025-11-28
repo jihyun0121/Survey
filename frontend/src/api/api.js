@@ -43,7 +43,9 @@ export const FormAPI = {
     getForm: (formId) => api.get(`/forms/${formId}`),
     getFormsByUser: (userId) => api.get(`/forms/user/${userId}`),
     updateForm: (formId, dto) => api.put(`/forms/${formId}`, dto),
-    publishForm: (formId, isPublic) => api.patch(`/forms/${formId}/publish`, isPublic),
+    publishForm(formId, isPublic) {
+        return api.patch(`/forms/${formId}/publish?isPublic=${isPublic}`, isPublic);
+    },
     deleteForm: (formId) => api.delete(`/forms/${formId}`),
 };
 

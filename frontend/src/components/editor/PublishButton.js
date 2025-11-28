@@ -13,10 +13,13 @@ export default function PublishButton({ formId, initialPublic }) {
         }
 
         try {
-            await FormAPI.updateForm(formId, { is_public: nextState });
+            const res = await FormAPI.publishForm(formId, nextState);
 
-            setIsPublic(nextState);
-            alert(nextState ? "게시 완료" : "게시 취소 완료");
+            const updated = res.data["게시됨"]?.is_public ?? nextState;
+
+            setIsPublic(updated);
+
+            alert(res.data.message || (updated ? "게시 완료" : "게시 취소 완료"));
         } catch (err) {
             console.error(err);
             alert("처리 중 오류가 발생했습니다.");
@@ -26,7 +29,7 @@ export default function PublishButton({ formId, initialPublic }) {
     return (
         <div className="dropdown">
             <button className="icon-btn" data-bs-toggle="dropdown" data-tooltip={isPublic ? "게시 취소" : "게시하기"}>
-                {isPublic ? <i class="bi bi-box-arrow-in-down"></i> : <i class="bi bi-box-arrow-up"></i>}
+                {isPublic ? <i className="bi bi-box-arrow-in-down"></i> : <i className="bi bi-box-arrow-up"></i>}
             </button>
 
             <div className="dropdown-menu small">
