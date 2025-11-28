@@ -68,7 +68,7 @@ export default function QuestionOptionEditor({ options = [], questionId, type, o
                             <i className="bi bi-three-dots-vertical" />
                         </span>
 
-                        <span className="me-2">{getIcon()}</span>
+                        <span className="opt-drag">{getIcon()}</span>
 
                         <div className="option-wrapper flex-grow-1">
                             <input
@@ -81,10 +81,15 @@ export default function QuestionOptionEditor({ options = [], questionId, type, o
                                     newList[index].option_content = e.target.value;
                                     onOptionsChange(newList);
                                 }}
-                                onBlur={(e) => {
-                                    QuestionAPI.updateOption(opt.option_id, {
-                                        option_content: e.target.value,
-                                    }).catch(() => alert("옵션 저장 실패"));
+                                onBlur={async (e) => {
+                                    try {
+                                        await QuestionAPI.updateOption(opt.option_id, {
+                                            option_content: e.target.value,
+                                        });
+                                    } catch (err) {
+                                        console.error(err);
+                                        alert("옵션 저장 실패");
+                                    }
                                 }}
                             />
                         </div>

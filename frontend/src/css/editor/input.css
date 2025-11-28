@@ -8,11 +8,12 @@
 }
 
 .form-input-option {
-    padding-bottom: 4px;
+    /* padding-bottom: 4px; */
     border: none;
     outline: none;
     background: transparent;
     font-size: 14px;
+    margin-left: 4px;
 }
 
 .input-wrapper {
@@ -25,7 +26,10 @@
     position: relative;
     width: 80%;
     border-bottom: 2px solid transparent;
+}
 
+.option-wrapper:hover {
+    border-bottom-color: rgba(0, 0, 0, 0.12);
 }
 
 .block-card:focus-within .input-wrapper,
@@ -42,7 +46,6 @@
     width: 100%;
     height: 2px;
     background: #673ab7;
-
     transform: translateX(-50%) scaleX(0);
     transform-origin: center;
     transition: transform 0.25s ease;
@@ -85,6 +88,7 @@
 
 .form-select:focus {
     box-shadow: none;
+    border-color: #673ab7;
 }
 
 .fake-option-input {
