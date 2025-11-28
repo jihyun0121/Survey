@@ -16,6 +16,12 @@ export default function RecentFormCard({ form, onDelete }) {
         }
     };
 
+    const handleResponse = async (e) => {
+        e.stopPropagation();
+
+        window.location.href = `/forms/responses/${form.id}`;
+    };
+
     return (
         <div className="col-12 col-md-6 col-lg-4" onClick={() => (window.location.href = `/forms/${form.id}/edit`)}>
             <div className="recent-card position-relative">
@@ -26,6 +32,9 @@ export default function RecentFormCard({ form, onDelete }) {
                         </button>
 
                         <div className="dropdown-menu small dropdown-menu-end">
+                            <button className="dropdown-item" onClick={handleResponse}>
+                                응답 결과
+                            </button>
                             <button className="dropdown-item text-danger" onClick={handleDelete}>
                                 삭제
                             </button>
