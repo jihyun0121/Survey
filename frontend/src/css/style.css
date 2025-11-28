@@ -32,3 +32,9 @@ input:focus {
     outline: none;
     box-shadow: none;
 }
+
+i,
+input,
+textarea {
+    line-height: 0;
+}

@@ -1,19 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { FormAPI, QuestionAPI } from "../api/api";
 import BuilderHeader from "../components/editor/BuilderHeader";
 import FormTitleEditor from "../components/editor/FormTitleEditor";
 import QuestionItem from "../components/editor/QuestionItem";
 import FloatingMenu from "../components/editor/FloatingMenu";
 import { useParams } from "react-router-dom";
+import Sortable from "sortablejs";
 
 export default function FormBuilderPage() {
     const { formId } = useParams();
 
     const [form, setForm] = useState(null);
     const [questions, setQuestions] = useState([]);
+    const [focusedQuestionId, setFocusedQuestionId] = useState(null);
+
+    const listRef = useRef(null);
 
     useEffect(() => {
         loadForm();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [formId]);
 
     async function loadForm() {
@@ -32,7 +37,7 @@ export default function FormBuilderPage() {
     }
 
     async function handleUpdateForm(field, value, isBlur) {
-        setForm({ ...form, [field]: value });
+        setForm((prev) => (prev ? { ...prev, [field]: value } : prev));
 
         if (isBlur) {
             try {
@@ -46,7 +51,6 @@ export default function FormBuilderPage() {
     async function handleAddQuestion() {
         try {
             const dto = {
-                question_name: `Q${questions.length + 1}`,
                 question_content: "",
                 question_type: "SHORT",
                 question_order: questions.length + 1,
@@ -54,8 +58,12 @@ export default function FormBuilderPage() {
             };
 
             const newQ = await QuestionAPI.createQuestion(dto);
-            setQuestions([...questions, newQ]);
+            const created = newQ.data ?? newQ;
+
+            setQuestions((prev) => [...prev, created]);
+            setFocusedQuestionId(created.question_id);
         } catch (err) {
+            console.error(err);
             alert("질문 생성 실패");
         }
     }
@@ -65,8 +73,49 @@ export default function FormBuilderPage() {
     }
 
     function handleDeleteQuestion(id) {
-        QuestionAPI.deleteQuestion(id).then(loadForm);
+        QuestionAPI.deleteQuestion(id)
+            .then(loadForm)
+            .catch(() => alert("질문 삭제 실패"));
     }
+
+    useEffect(() => {
+        if (!listRef.current) return;
+
+        const sortable = Sortable.create(listRef.current, {
+            animation: 150,
+            handle: ".drag-handle",
+            draggable: ".block-question-card",
+
+            onEnd: async (evt) => {
+                const oldIndex = evt.oldIndex;
+                const newIndex = evt.newIndex;
+
+                setQuestions((prev) => {
+                    const newList = [...prev];
+                    const [moved] = newList.splice(oldIndex, 1);
+                    newList.splice(newIndex, 0, moved);
+
+                    return newList.map((q, index) => ({
+                        ...q,
+                        question_order: index + 1,
+                    }));
+                });
+
+                const movedQuestion = questions[oldIndex];
+
+                try {
+                    await QuestionAPI.reorderQuestions({
+                        question_id: movedQuestion.question_id,
+                        question_order: newIndex + 1,
+                    });
+                } catch (err) {
+                    console.error("순서 변경 실패", err);
+                }
+            },
+        });
+
+        return () => sortable.destroy();
+    }, [questions]);
 
     return (
         <div className="builder-container">
@@ -75,11 +124,12 @@ export default function FormBuilderPage() {
                 <main>
                     <FormTitleEditor title={form?.title} description={form?.description} onChangeTitle={(v, blur) => handleUpdateForm("title", v, blur)} onChangeDescription={(v, blur) => handleUpdateForm("description", v, blur)} />
 
-                    <section className="question-list">
+                    <section className="question-list" ref={listRef}>
                         {questions.map((q) => (
-                            <QuestionItem key={q.question_id} question={q} onLocalChange={updateQuestionLocal} onDelete={handleDeleteQuestion} />
+                            <QuestionItem key={q.question_id} question={q} onLocalChange={updateQuestionLocal} onDelete={handleDeleteQuestion} autoFocus={q.question_id === focusedQuestionId} />
                         ))}
                     </section>
+
                     <FloatingMenu handleAddQuestion={handleAddQuestion} />
                 </main>
             </div>
