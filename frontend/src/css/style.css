@@ -8,6 +8,7 @@
     margin-left: 180px;
 }
 
+input,
 textarea {
     font-family: inherit;
     font-size: inherit;
@@ -16,19 +17,9 @@ textarea {
     outline: none;
 }
 
-input {
-    font-family: inherit;
-    font-size: inherit;
-    border: none;
-    outline: none;
-}
 
+input:focus,
 textarea:focus {
-    outline: none;
-    box-shadow: none;
-}
-
-input:focus {
     outline: none;
     box-shadow: none;
 }

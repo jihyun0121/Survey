@@ -46,7 +46,7 @@
     left: 50%;
     width: 100%;
     height: 2px;
-    background: #673ab7;
+    background: #607d8b;
     transform: translateX(-50%) scaleX(0);
     transform-origin: center;
     transition: transform 0.25s ease;
@@ -89,7 +89,7 @@
 
 .form-select:focus {
     box-shadow: none;
-    border-color: #673ab7;
+    border-color: #607d8b;
 }
 
 .form-check-input {
@@ -98,7 +98,7 @@
 
 .form-check-input:focus {
     box-shadow: none;
-    border-color: #673ab7;
+    border-color: #607d8b;
 }
 
 .form-check-input:disabled {
@@ -107,8 +107,8 @@
 }
 
 .form-check-input:checked {
-    background-color: #673ab7;
-    border-color: #673ab7;
+    background-color: #607d8b;
+    border-color: #607d8b;
     box-shadow: none;
 }
 
@@ -143,7 +143,7 @@
     left: 3px;
     width: 8px;
     height: 8px;
-    background: #673ab7;
+    background: #607d8b;
     display: none;
     border-radius: inherit;
 }
