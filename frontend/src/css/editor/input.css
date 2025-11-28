@@ -9,6 +9,7 @@
 
 .form-input-option {
     /* padding-bottom: 4px; */
+    width: 100%;
     border: none;
     outline: none;
     background: transparent;
