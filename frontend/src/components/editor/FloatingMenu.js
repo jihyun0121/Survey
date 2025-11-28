@@ -4,7 +4,7 @@ export default function FloatingMenu({ handleAddQuestion }) {
     return (
         <aside className="floating-menu bg-white d-md-flex flex-column">
             <button className="icon-btn" data-tooltip="질문 추가" onClick={handleAddQuestion}>
-                <i className="bi bi-plus-lg"></i>
+                <i className="bi bi-plus-circle"></i>
             </button>
         </aside>
     );
