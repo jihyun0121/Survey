@@ -17,6 +17,7 @@ import "./css/editor/input.css";
 import "./css/editor/handle.css";
 import "./css/response/response.css";
 import "./css/answer/answer.css";
+import "./css/answer/complete.css";
 // import "./css/editor/settings.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
