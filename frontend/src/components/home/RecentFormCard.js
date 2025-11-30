@@ -23,7 +23,7 @@ export default function RecentFormCard({ form, onDelete }) {
     };
 
     return (
-        <div className="col-12 col-md-6 col-lg-4" onClick={() => (window.location.href = `/forms/${form.id}/edit`)}>
+        <div className="col-12 col-md-6 col-lg-4" onClick={() => (window.location.href = `/forms/edit/${form.id}`)}>
             <div className="recent-card position-relative">
                 <div className="card-body">
                     <div className="dropdown position-absolute recent-menu-btn" style={{ top: 6, right: 6 }}>
