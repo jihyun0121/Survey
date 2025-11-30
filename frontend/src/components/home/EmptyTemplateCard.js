@@ -20,7 +20,7 @@ export default function EmptyTemplateCard() {
 
             if (!newForm?.form_id) throw new Error("form_id 없음");
 
-            window.location.href = `/forms/${newForm.form_id}/edit`;
+            window.location.href = `/forms/edit/${newForm.form_id}`;
         } catch (err) {
             console.error(err);
             alert("새 양식을 생성할 수 없습니다.");
