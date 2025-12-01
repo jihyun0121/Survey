@@ -9,16 +9,17 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./css/style.css";
 import "./css/icon.css";
-import "./css/home/card.css";
-import "./css/home/nav.css";
-import "./css/editor/editor.css";
-import "./css/editor/builder.css";
-import "./css/editor/input.css";
-import "./css/editor/handle.css";
-import "./css/response/response.css";
-import "./css/answer/answer.css";
-import "./css/answer/complete.css";
-// import "./css/editor/settings.css";
+import "./css/card.css";
+import "./css/nav.css";
+import "./css/editor.css";
+import "./css/builder.css";
+import "./css/input.css";
+import "./css/handle.css";
+import "./css/answer.css";
+import "./css/complete.css";
+import "./css/header.css";
+import "./css/response.css";
+import "./css/chart.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

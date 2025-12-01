@@ -5,6 +5,12 @@
     background-color: #fff;
 }
 
+.canvas-container {
+    width: fit-content;
+    margin: 14px auto;
+    padding: 12px;
+}
+
 .trans::before {
     transform: rotate(90deg) scaleX(-1);
 }

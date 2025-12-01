@@ -161,7 +161,7 @@ export default function SummaryItemCard({ question, allAnswers }) {
 
         if (viewType === "pie") {
             return (
-                <div className="mt-3">
+                <div className="canvas-container">
                     <Pie data={data} />
                 </div>
             );
@@ -180,7 +180,7 @@ export default function SummaryItemCard({ question, allAnswers }) {
                 },
             };
             return (
-                <div className="mt-3">
+                <div className="canvas-container">
                     <Bar data={data} options={options} />
                 </div>
             );
@@ -200,7 +200,7 @@ export default function SummaryItemCard({ question, allAnswers }) {
                 },
             };
             return (
-                <div className="mt-3">
+                <div className="canvas-container">
                     <Bar data={data} options={options} />
                 </div>
             );
