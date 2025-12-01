@@ -1,0 +1,67 @@
+.responses-header {
+    background-color: #fff;
+    border: 1px solid rgb(218, 220, 224);
+    border-radius: 8px;
+}
+
+.responses-header-title {
+    padding: 16px 24px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.response-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.response-page {
+    height: 46px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.tab-page {
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+.page-btn {
+    flex: 1;
+    height: 46px;
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+}
+
+.page-btn.active {
+    color: #000;
+    font-weight: 600;
+}
+
+.page-underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: #607d8b;
+    border-radius: 8px;
+    transition: 0.25s ease;
+}
+
+.responses-tab {
+    display: none;
+}
+
+.responses-tab.active {
+    display: block;
+}
