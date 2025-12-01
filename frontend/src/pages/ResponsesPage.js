@@ -42,7 +42,7 @@ export default function ResponsesPage() {
             <div className="responses-wrapper">
                 <ResponsesHeader Respondent={Respondent} activeTab={activeTab} onChangeTab={setActiveTab} formId={Number(formId)} />
 
-                {activeTab === "summary" && <SummaryTab formId={Number(formId)} questions={questions} answers={answers} />}
+                {activeTab === "summary" && <SummaryTab questions={questions} answers={answers} />}
 
                 {activeTab === "question" && <QuestionTab formId={Number(formId)} questions={questions} answers={answers} />}
 

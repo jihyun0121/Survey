@@ -57,11 +57,11 @@ export default function ResponsesHeader({ Respondent, activeTab, onChangeTab, fo
 
                 <div className="d-flex gap-2">
                     <button className="icon-btn-sm" onClick={() => handleDownload("xls")} disabled={downloading} data-tooltip={"엑셀 다운로드"}>
-                        {downloading ? "다운로드 중..." : <i className="bi bi-file-earmark-spreadsheet-fill"></i>}
+                        <i className="bi bi-file-earmark-spreadsheet-fill"></i>
                     </button>
 
                     <button className="icon-btn-sm" onClick={() => handleDownload("csv")} disabled={downloading} data-tooltip={"엑셀 다운로드"}>
-                        {downloading ? "다운로드 중..." : <i className="bi bi-filetype-csv"></i>}
+                        <i className="bi bi-filetype-csv"></i>
                     </button>
                 </div>
             </div>
