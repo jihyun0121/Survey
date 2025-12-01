@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { FormAPI, QuestionAPI, AnswerAPI } from "../api/api";
+import { FormAPI, QuestionAPI, AnswerAPI, StatisticAPI } from "../api/api";
 import AnswerTitle from "../components/answer/AnswerTitle";
 import QuestionRenderer from "../components/answer/QuestionRenderer";
 
@@ -22,6 +22,12 @@ export default function AnswerFormPage() {
     const current = questions[page];
 
     useEffect(() => {
+        const userId = localStorage.getItem("user_id");
+        if (!userId) {
+            alert("로그인이 필요합니다.");
+            navigate("/auth");
+            return;
+        }
         initialize();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [formId]);
@@ -40,7 +46,7 @@ export default function AnswerFormPage() {
         const userId = localStorage.getItem("user_id");
         if (userId) {
             try {
-                const historyRes = await AnswerAPI.getSurveyHistory(Number(userId));
+                const historyRes = await StatisticAPI.getSurveyHistory(Number(userId));
                 const history = historyRes.data;
 
                 if (Array.isArray(history) && history.includes(Number(formId))) {
