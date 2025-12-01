@@ -29,10 +29,6 @@
     justify-content: space-between;
 }
 
-.response-sub-title {
-    /* justify-content: flex-start; */
-}
-
 .summary-tab-container {
     margin-top: 12px;
     display: flex;
