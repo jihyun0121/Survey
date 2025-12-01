@@ -28,7 +28,7 @@ export default function SummaryTab({ formId, questions, answers }) {
     }
 
     return (
-        <div className="mt-3">
+        <div className="summary-tab-container">
             {questions.map((q) => (
                 <SummaryItemCard key={q.question_id} question={q} allAnswers={answers || []} />
             ))}

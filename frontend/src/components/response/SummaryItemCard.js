@@ -85,9 +85,9 @@ export default function SummaryItemCard({ question, allAnswers }) {
 
     function renderViewButtons() {
         return (
-            <div className="icon-btn-wrapper">
+            <div className="icon-btn-wrapper bg-light">
                 {VIEW_TYPES.map((typeKey) => (
-                    <button key={typeKey} type="button" className={`icon-btn-sm ${viewType === typeKey ? "btn-primary" : "btn-outline-secondary"}`} onClick={() => setViewType(typeKey)}>
+                    <button key={typeKey} type="button" className={`icon-btn-sm ${viewType === typeKey ? "btn-primary seleccted-btn" : "btn-outline-secondary"}`} onClick={() => setViewType(typeKey)}>
                         {typeKey === "pie" && <i className="bi bi-pie-chart"></i>}
                         {typeKey === "bar" && <i className="bi bi-bar-chart-line"></i>}
                         {typeKey === "hbar" && <i className="bi bi-bar-chart-line trans"></i>}
@@ -103,27 +103,27 @@ export default function SummaryItemCard({ question, allAnswers }) {
             return <div className="text-muted-none small mt-3">아직 이 질문에 대한 응답이 없습니다.</div>;
         }
 
-        // if (viewType !== "list" && isText) {
-        //     return <div className="text-muted-none small mt-3">텍스트 응답 질문은 리스트 형태로만 표시됩니다.</div>;
-        // }
+        if (viewType !== "list" && isText) {
+            return <div className="text-muted-none small mt-3">텍스트 응답 질문은 리스트 형태로만 표시됩니다.</div>;
+        }
 
         if (viewType === "list") {
             if (isChoice) {
                 return (
-                    <ul className="mt-3 mb-0 small">
+                    <div className="text-container">
                         {choiceStats.labels.map((label, idx) => (
-                            <li key={idx}>
-                                {label}: {choiceStats.counts[idx]}명
-                            </li>
+                            <div className="text-content" key={idx}>
+                                {label}: {choiceStats.counts[idx]}
+                            </div>
                         ))}
-                    </ul>
+                    </div>
                 );
             }
             if (isText) {
                 return (
-                    <div className="mt-3">
+                    <div className="text-container">
                         {textAnswers.map((t, idx) => (
-                            <div key={idx} className="mb-2 p-2 rounded small">
+                            <div key={idx} className="text-content">
                                 {t}
                             </div>
                         ))}
@@ -131,9 +131,9 @@ export default function SummaryItemCard({ question, allAnswers }) {
                 );
             }
             return (
-                <div className="mt-3 small">
+                <div className="text-container">
                     {answers.map((a) => (
-                        <div key={a.answer_id} className="mb-2 p-2 rounded">
+                        <div key={a.answer_id} className="text-content">
                             {a.answer_text || a.answer_long || "-"}
                         </div>
                     ))}
@@ -142,7 +142,7 @@ export default function SummaryItemCard({ question, allAnswers }) {
         }
 
         if (!isChoice) {
-            return <div className="text-muted-none small mt-3">이 질문 타입은 그래프로 표시할 수 없습니다.</div>;
+            return <div className="text-muted-none small mt-3">이 질문은 그래프로 표시할 수 없습니다.</div>;
         }
 
         if (!choiceStats.labels.length) {
@@ -210,7 +210,7 @@ export default function SummaryItemCard({ question, allAnswers }) {
     }
 
     return (
-        <div className="chart-card border rounded bg-white res-card">
+        <div className="chart-card">
             <div className="chart-question">
                 Q{question.question_order}. {question.question_content}
             </div>
