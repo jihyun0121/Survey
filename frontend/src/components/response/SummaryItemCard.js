@@ -38,6 +38,12 @@ export default function SummaryItemCard({ question, allAnswers }) {
         loadOptions();
     }, [question.question_id, isChoice]);
 
+    useEffect(() => {
+        if (isText) {
+            setViewType("list");
+        }
+    }, [isText]);
+
     const answers = useMemo(() => (allAnswers || []).filter((a) => a.question_id === question.question_id), [allAnswers, question.question_id]);
 
     const choiceStats = useMemo(() => {
@@ -84,6 +90,8 @@ export default function SummaryItemCard({ question, allAnswers }) {
     }, [isChoice, isText, choiceStats, textAnswers, answers]);
 
     function renderViewButtons() {
+        if (isText) return null;
+
         return (
             <div className="icon-btn-wrapper bg-light">
                 {VIEW_TYPES.map((typeKey) => {
