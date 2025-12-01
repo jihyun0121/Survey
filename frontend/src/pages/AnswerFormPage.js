@@ -30,14 +30,33 @@ export default function AnswerFormPage() {
         const form = await FormAPI.getForm(formId);
         setFormInfo(form.data);
 
-        if (form.data.isPublic === false) {
-            alert("비공개 설문지는 응답할 수 없습니다.");
-            window.location.href = "/";
+        if (form.data.is_public === false) {
+            navigate("/forms/answer/complete", {
+                state: { state: "private" },
+            });
             return;
+        }
+
+        const userId = localStorage.getItem("user_id");
+        if (userId) {
+            try {
+                const historyRes = await AnswerAPI.getSurveyHistory(Number(userId));
+                const history = historyRes.data;
+
+                if (Array.isArray(history) && history.includes(Number(formId))) {
+                    navigate("/forms/answer/complete", {
+                        state: { state: "already" },
+                    });
+                    return;
+                }
+            } catch (err) {
+                console.error("참여 기록 조회 실패", err);
+            }
         }
 
         init();
     }
+
     async function init() {
         try {
             const f = await FormAPI.getForm(formId);
@@ -200,7 +219,7 @@ export default function AnswerFormPage() {
             // alert("응답이 제출되었습니다!");
             navigate("/forms/answer/complete", {
                 state: {
-                    title: form?.title,
+                    state: "complete",
                 },
             });
         } catch (e) {
