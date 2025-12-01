@@ -12,6 +12,9 @@ import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
 
 import com.survey.backend.entities.Answer;
+import com.survey.backend.entities.Option;
+import com.survey.backend.entities.Question;
+import com.survey.backend.repositories.OptionRepository;
 import com.survey.backend.repositories.StatisticRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class StatisticService {
         private final StatisticRepository statisticRepository;
+        private final OptionRepository optionRepository;
 
         public List<Long> getSurveyHistory(Long userId) {
                 return statisticRepository.findByUser_UserId(userId).stream()
@@ -144,56 +148,55 @@ public class StatisticService {
 
         public List<Map<String, Object>> getCodedData(Long formId) {
                 List<Answer> answers = statisticRepository.findByQuestion_Form_FormId(formId);
-
-                Map<Long, Map<Long, List<Answer>>> byUserThenQuestion = answers.stream()
+                List<Question> questions = answers.stream()
+                                .map(Answer::getQuestion)
+                                .distinct()
+                                .sorted(Comparator.comparingLong(Question::getQuestionOrder))
+                                .toList();
+                Map<Long, Map<Long, List<Answer>>> byUser = answers.stream()
                                 .collect(Collectors.groupingBy(
                                                 a -> a.getUser().getUserId(),
                                                 Collectors.groupingBy(a -> a.getQuestion().getQuestionId())));
+                List<Map<String, Object>> rows = new ArrayList<>();
 
-                List<Map<String, Object>> codedRows = new ArrayList<>();
-
-                for (Map.Entry<Long, Map<Long, List<Answer>>> userEntry : byUserThenQuestion.entrySet()) {
+                for (Map.Entry<Long, Map<Long, List<Answer>>> userEntry : byUser.entrySet()) {
                         Long userId = userEntry.getKey();
-                        Map<Long, List<Answer>> byQuestion = userEntry.getValue();
-
+                        Map<Long, List<Answer>> answersByQuestion = userEntry.getValue();
                         Map<String, Object> row = new LinkedHashMap<>();
                         row.put("user_id", userId);
 
-                        for (Map.Entry<Long, List<Answer>> qEntry : byQuestion.entrySet()) {
-                                Long questionId = qEntry.getKey();
-                                List<Answer> qAnswers = qEntry.getValue();
+                        for (Question q : questions) {
+                                Long qId = q.getQuestionId();
+                                Long qOrder = q.getQuestionOrder();
+                                List<Answer> qAnswers = answersByQuestion.getOrDefault(qId, List.of());
+                                String baseKey = "Q_" + qOrder;
+                                boolean hasOption = qAnswers.stream().anyMatch(a -> a.getOption() != null);
 
-                                String columnKey = "Q_" + questionId;
+                                if (hasOption) {
+                                        List<Option> options = optionRepository
+                                                        .findByQuestion_QuestionIdOrderByOptionOrderAsc(qId);
 
-                                if (qAnswers.stream().anyMatch(a -> a.getOption() != null)) {
-                                        List<Long> optionOrders = qAnswers.stream()
-                                                        .filter(a -> a.getOption() != null)
-                                                        .map(a -> a.getOption().getOptionOrder())
-                                                        .filter(Objects::nonNull)
-                                                        .sorted()
-                                                        .toList();
-
-                                        String coded = optionOrders.stream()
-                                                        .map(order -> "OPT_" + order)
-                                                        .collect(Collectors.joining(","));
-
-                                        row.put(columnKey, coded);
+                                        for (Option opt : options) {
+                                                String colKey = baseKey + "_" + opt.getOptionOrder();
+                                                boolean selected = qAnswers.stream()
+                                                                .anyMatch(a -> a.getOption() != null &&
+                                                                                a.getOption().getOptionId().equals(
+                                                                                                opt.getOptionId()));
+                                                row.put(colKey, selected ? opt.getOptionOrder() : null);
+                                        }
                                 } else {
-                                        Optional<String> text = qAnswers.stream()
+                                        String text = qAnswers.stream()
                                                         .map(a -> a.getAnswerText() != null ? a.getAnswerText()
                                                                         : a.getAnswerLong())
                                                         .filter(Objects::nonNull)
-                                                        .filter(s -> !s.isBlank())
-                                                        .findFirst();
-
-                                        row.put(columnKey, text.orElse(null));
+                                                        .findFirst()
+                                                        .orElse(null);
+                                        row.put(baseKey + "_TEXT", text);
                                 }
                         }
-
-                        codedRows.add(row);
+                        rows.add(row);
                 }
-
-                return codedRows;
+                return rows;
         }
 
         public byte[] downloadExcel(Long formId) {
