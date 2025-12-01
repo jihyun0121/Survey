@@ -14,38 +14,52 @@ export default function AnswerFormPage() {
     const [page, setPage] = useState(0);
     const [answers, setAnswers] = useState({});
     const [loading, setLoading] = useState(false);
+    // eslint-disable-next-line no-unused-vars
+    const [formInfo, setFormInfo] = useState(null);
 
     const STORAGE_KEY = useMemo(() => `form_${formId}_answers`, [formId]);
 
     const current = questions[page];
 
     useEffect(() => {
-        async function init() {
-            try {
-                const f = await FormAPI.getForm(formId);
-                setForm(f.data);
+        initialize();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [formId]);
 
-                const q = await QuestionAPI.getQuestionsByForm(formId);
-                setQuestions(q.data || []);
+    async function initialize() {
+        const form = await FormAPI.getForm(formId);
+        setFormInfo(form.data);
 
-                const saved = sessionStorage.getItem(STORAGE_KEY);
-                if (saved) {
-                    try {
-                        setAnswers(JSON.parse(saved));
-                    } catch (e) {
-                        console.warn("sessionStorage 파싱 실패, 초기화합니다.", e);
-                        sessionStorage.removeItem(STORAGE_KEY);
-                    }
-                }
-            } catch (e) {
-                console.error("설문/질문 로드 실패", e);
-                alert("설문을 불러오는 중 문제가 발생했습니다.");
-            }
+        if (form.data.isPublic === false) {
+            alert("비공개 설문지는 응답할 수 없습니다.");
+            window.location.href = "/";
+            return;
         }
 
         init();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [formId]);
+    }
+    async function init() {
+        try {
+            const f = await FormAPI.getForm(formId);
+            setForm(f.data);
+
+            const q = await QuestionAPI.getQuestionsByForm(formId);
+            setQuestions(q.data || []);
+
+            const saved = sessionStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    setAnswers(JSON.parse(saved));
+                } catch (e) {
+                    console.warn("sessionStorage 파싱 실패", e);
+                    sessionStorage.removeItem(STORAGE_KEY);
+                }
+            }
+        } catch (e) {
+            console.error("설문/질문 로드 실패", e);
+            alert("설문을 불러오는 중 문제가 발생했습니다.");
+        }
+    }
 
     useEffect(() => {
         sessionStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
@@ -164,7 +178,6 @@ export default function AnswerFormPage() {
                         });
                     }
                 }
-
             }
 
             if (payloadAnswers.length === 0) {
@@ -187,8 +200,8 @@ export default function AnswerFormPage() {
             // alert("응답이 제출되었습니다!");
             navigate("/forms/answer/complete", {
                 state: {
-                    title: form?.title
-                }
+                    title: form?.title,
+                },
             });
         } catch (e) {
             console.error("제출 실패", e);
@@ -197,7 +210,6 @@ export default function AnswerFormPage() {
             setLoading(false);
         }
     }
-
 
     return (
         <div className="answer-container">
