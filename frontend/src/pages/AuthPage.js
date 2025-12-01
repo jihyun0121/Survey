@@ -90,12 +90,16 @@ export default function AuthPage() {
 
                     <div className="mb-3">
                         <label className="form-label">이메일</label>
-                        <input type="email" className="form-input-base" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="이메일을 입력해주세요" />
+                        <div className="input-wrapper">
+                            <input type="email" className="form-input-base" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="이메일을 입력해주세요" />
+                        </div>
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label">비밀번호</label>
-                        <input type="password" className="form-input-base" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} placeholder="비밀번호를 입력해주세요" />
+                        <div className="input-wrapper">
+                            <input type="password" className="form-input-base" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} placeholder="비밀번호를 입력해주세요" />
+                        </div>
                     </div>
 
                     <button className="btn btn-primary w-100 mb-2" onClick={handleLogin} disabled={loading}>
@@ -114,12 +118,16 @@ export default function AuthPage() {
 
                     <div className="mb-3">
                         <label className="form-label">이메일</label>
-                        <input type="email" className="form-input-base" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} placeholder="이메일을 입력해주세요" />
+                        <div className="input-wrapper">
+                            <input type="email" className="form-input-base" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} placeholder="이메일을 입력해주세요" />
+                        </div>
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label">비밀번호</label>
-                        <input type="password" className="form-input-base" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} placeholder="비밀번호를 입력해주세요" />
+                        <div className="input-wrapper">
+                            <input type="password" className="form-input-base" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} placeholder="비밀번호를 입력해주세요" />
+                        </div>
                     </div>
 
                     <button className="btn btn-success w-100 mb-2" onClick={handleSignup} disabled={loading}>

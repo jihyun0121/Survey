@@ -26,5 +26,5 @@ export default function LoadingPage() {
         }
     };
 
-    return <div>구글 로그인 중...</div>;
+    return <div></div>;
 }

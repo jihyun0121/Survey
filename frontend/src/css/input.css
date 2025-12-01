@@ -15,6 +15,14 @@ textarea.form-input-base {
     /* align-content: center; */
 }
 
+.form-input-border {
+    /* border: 2px solid #607d8b; */
+    border-radius: 8px;
+    padding: 0;
+    font-weight: 600;
+    text-align: right;
+}
+
 .bg-gr {
     height: 100%;
     background-color: rgb(248, 249, 250);

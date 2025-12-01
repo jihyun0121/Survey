@@ -86,14 +86,18 @@ export default function SummaryItemCard({ question, allAnswers }) {
     function renderViewButtons() {
         return (
             <div className="icon-btn-wrapper bg-light">
-                {VIEW_TYPES.map((typeKey) => (
-                    <button key={typeKey} type="button" className={`icon-btn-sm ${viewType === typeKey ? "btn-primary seleccted-btn" : "btn-outline-secondary"}`} onClick={() => setViewType(typeKey)}>
-                        {typeKey === "pie" && <i className="bi bi-pie-chart"></i>}
-                        {typeKey === "bar" && <i className="bi bi-bar-chart-line"></i>}
-                        {typeKey === "hbar" && <i className="bi bi-bar-chart-line trans"></i>}
-                        {typeKey === "list" && <i className="bi bi-list-ul"></i>}
-                    </button>
-                ))}
+                {VIEW_TYPES.map((typeKey) => {
+                    const tooltipText = typeKey === "pie" ? "원형 그래프" : typeKey === "bar" ? "세로 막대 그래프" : typeKey === "hbar" ? "가로 막대 그래프" : "리스트 보기";
+
+                    return (
+                        <button key={typeKey} type="button" className={`icon-btn-sm ${viewType === typeKey ? "btn-primary selected-btn" : "btn-outline-secondary"}`} onClick={() => setViewType(typeKey)} data-tooltip={tooltipText}>
+                            {typeKey === "pie" && <i className="bi bi-pie-chart"></i>}
+                            {typeKey === "bar" && <i className="bi bi-bar-chart-line"></i>}
+                            {typeKey === "hbar" && <i className="bi bi-bar-chart-line trans"></i>}
+                            {typeKey === "list" && <i className="bi bi-list-ul"></i>}
+                        </button>
+                    );
+                })}
             </div>
         );
     }

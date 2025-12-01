@@ -15,5 +15,9 @@ export default function QuestionLongText({ questionId, value, onChange }) {
         el.style.height = el.scrollHeight + "px";
     }
 
-    return <textarea ref={inputRef} className="form-input-base" value={value || ""} placeholder="답변을 입력하세요" onChange={(e) => onChange(e.target.value)} onInput={(e) => autoResize(e.target)} rows={1} />;
+    return (
+        <div className="input-wrapper">
+            <textarea ref={inputRef} className="form-input-base" value={value || ""} placeholder="답변을 입력하세요" onChange={(e) => onChange(e.target.value)} onInput={(e) => autoResize(e.target)} rows={1} />
+        </div>
+    );
 }
