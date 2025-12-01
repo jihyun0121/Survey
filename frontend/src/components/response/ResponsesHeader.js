@@ -60,7 +60,7 @@ export default function ResponsesHeader({ Respondent, activeTab, onChangeTab, fo
                         <i className="bi bi-file-earmark-spreadsheet-fill"></i>
                     </button>
 
-                    <button className="icon-btn-sm" onClick={() => handleDownload("csv")} disabled={downloading} data-tooltip={"엑셀 다운로드"}>
+                    <button className="icon-btn-sm" onClick={() => handleDownload("csv")} disabled={downloading} data-tooltip={"CSV 다운로드"}>
                         <i className="bi bi-filetype-csv"></i>
                     </button>
                 </div>
