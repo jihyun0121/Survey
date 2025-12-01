@@ -99,7 +99,7 @@ function CheckboxResult({ stats, options }) {
                         <div className="mt-2 text-muted small">
                             <div className="border-bottom"></div>
                             <br />
-                            중복 응답 {count}개
+                            응답 {count}개
                         </div>
                     </div>
                 );

@@ -2,7 +2,7 @@ export default function QuestionSelector({ questions, currentQuestion, onSelect,
     return (
         <div className="response-titles">
             <div className="d-flex align-items-center">
-                <select className="form-select form-select-sm question-type-select w-auto" value={currentQuestion?.question_id} onChange={(e) => onSelect(e.target.value)}>
+                <select className="form-select form-select-sm question-type-select" value={currentQuestion?.question_id} onChange={(e) => onSelect(e.target.value)}>
                     {questions.map((q) => (
                         <option key={q.question_id} value={q.question_id}>
                             {q.question_content}

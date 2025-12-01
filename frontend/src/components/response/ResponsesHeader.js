@@ -53,7 +53,7 @@ export default function ResponsesHeader({ Respondent, activeTab, onChangeTab, fo
     return (
         <div className="responses-header">
             <div className="responses-header-title">
-                <div className="response-title">응답 수 {Respondent}명</div>
+                <div className="response-title">응답 {Respondent}개</div>
 
                 <div className="d-flex gap-2">
                     <button className="icon-btn-sm" onClick={() => handleDownload("xls")} disabled={downloading} data-tooltip={"엑셀 다운로드"}>

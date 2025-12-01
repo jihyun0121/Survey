@@ -109,8 +109,8 @@ textarea.form-input-base {
 }
 
 .form-select {
-    width: 223px;
     height: 53px;
+    max-width: 90%;
 }
 
 .form-select:focus {
