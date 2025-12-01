@@ -10,7 +10,7 @@ export default function BuilderHeader({ form }) {
 
             <div className="builder-nav navbar navbar-light bg-white">
                 <ShareButton formId={form?.form_id} />
-                <PublishButton formId={form?.form_id} initialPublic={form?.is_public} />
+                {form && <PublishButton formId={form.form_id} initialPublic={form.is_public} />}
             </div>
         </div>
     );

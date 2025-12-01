@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormAPI } from "../../api/api";
 
 export default function PublishButton({ formId, initialPublic }) {
-    const [isPublic, setIsPublic] = useState(initialPublic);
+    const [isPublic, setIsPublic] = useState(!!initialPublic);
+
+    useEffect(() => {
+        setIsPublic(!!initialPublic);
+    }, [initialPublic]);
 
     const togglePublish = async () => {
         const nextState = !isPublic;
@@ -15,7 +19,7 @@ export default function PublishButton({ formId, initialPublic }) {
         try {
             const res = await FormAPI.publishForm(formId, nextState);
 
-            const updated = res.data["게시됨"]?.is_public ?? nextState;
+            const updated = res.data.is_public ?? res.data.form?.is_public ?? nextState;
 
             setIsPublic(updated);
 
