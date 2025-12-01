@@ -4,10 +4,6 @@
     box-sizing: border-box;
 }
 
-.container {
-    margin-left: 180px;
-}
-
 input,
 textarea {
     font-family: inherit;
