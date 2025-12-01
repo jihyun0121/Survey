@@ -40,9 +40,9 @@ public class AnswerController {
         return ResponseEntity.ok(statisticService.getSurveyHistory(userId));
     }
 
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<?> deleteForm(@PathVariable Long userId) {
-        answerService.deleteAnswer(userId);
+    @DeleteMapping("/user/{userId}/forms/{formId}")
+    public ResponseEntity<?> deleteForm(@PathVariable Long userId, @PathVariable Long formId) {
+        answerService.deleteAnswer(userId, formId);
         return ResponseEntity.ok(Map.of("message", "응답 삭제"));
     }
 

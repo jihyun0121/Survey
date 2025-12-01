@@ -74,7 +74,7 @@ export const AnswerAPI = {
     getAnswersByQuestion: (questionId) => api.get(`/questions/${questionId}/answers`),
     getAnswersByForm: (formId) => api.get(`/forms/${formId}/answers`),
     getUserAnswerForForm: (userId, formId) => api.get(`/answers/user/${userId}/forms/${formId}`),
-    deleteAnswer: (userId) => api.delete(`/answers/${userId}`),
+    deleteAnswer: (userId, formId) => api.delete(`/answers/user/${userId}/forms/${formId}`),
 };
 
 export const StatisticAPI = {

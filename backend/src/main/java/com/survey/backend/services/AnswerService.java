@@ -95,7 +95,7 @@ public class AnswerService {
     }
 
     @Transactional
-    public void deleteAnswer(Long userId) {
-        answerRepository.deleteByUser_UserId(userId);
+    public void deleteAnswer(Long userId, Long formId) {
+        answerRepository.deleteByUser_UserIdAndQuestion_Form_FormId(userId, formId);
     }
 }

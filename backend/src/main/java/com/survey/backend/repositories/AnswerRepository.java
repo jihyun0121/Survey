@@ -15,5 +15,5 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
     List<Answer> findByUser_UserIdAndQuestion_Form_FormId(Long userId, Long formId);
 
-    void deleteByUser_UserId(Long userId);
+    void deleteByUser_UserIdAndQuestion_Form_FormId(Long userId, Long formId);
 }
