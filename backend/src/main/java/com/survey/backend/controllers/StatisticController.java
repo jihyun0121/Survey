@@ -1,5 +1,11 @@
 package com.survey.backend.controllers;
 
+import java.nio.charset.StandardCharsets;
+
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,12 +65,32 @@ public class StatisticController {
     }
 
     @GetMapping("/forms/{formId}/export/xls")
-    public ResponseEntity<?> downloadExcel(@PathVariable Long formId) {
-        return ResponseEntity.ok(statisticService.downloadExcel(formId));
+    public ResponseEntity<byte[]> downloadExcel(@PathVariable Long formId) {
+        byte[] fileBytes = statisticService.downloadExcel(formId);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+
+        ContentDisposition disposition = ContentDisposition.attachment()
+                .filename("form_" + formId + ".xls", StandardCharsets.UTF_8)
+                .build();
+        headers.setContentDisposition(disposition);
+
+        return new ResponseEntity<>(fileBytes, headers, HttpStatus.OK);
     }
 
     @GetMapping("/forms/{formId}/export/csv")
-    public ResponseEntity<?> downloadCSV(@PathVariable Long formId) {
-        return ResponseEntity.ok(statisticService.downloadCSV(formId));
+    public ResponseEntity<byte[]> downloadCSV(@PathVariable Long formId) {
+        byte[] fileBytes = statisticService.downloadCSV(formId);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("text", "csv", StandardCharsets.UTF_8));
+
+        ContentDisposition disposition = ContentDisposition.attachment()
+                .filename("form_" + formId + ".csv", StandardCharsets.UTF_8)
+                .build();
+        headers.setContentDisposition(disposition);
+
+        return new ResponseEntity<>(fileBytes, headers, HttpStatus.OK);
     }
 }
