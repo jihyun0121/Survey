@@ -110,7 +110,7 @@ export default function SummaryItemCard({ question, allAnswers }) {
         if (viewType === "list") {
             if (isChoice) {
                 return (
-                    <div className="text-container">
+                    <div className="text-wrapper">
                         {choiceStats.labels.map((label, idx) => (
                             <div className="text-content" key={idx}>
                                 {label}: {choiceStats.counts[idx]}
@@ -121,7 +121,7 @@ export default function SummaryItemCard({ question, allAnswers }) {
             }
             if (isText) {
                 return (
-                    <div className="text-container">
+                    <div className="text-wrapper">
                         {textAnswers.map((t, idx) => (
                             <div key={idx} className="text-content">
                                 {t}
@@ -131,7 +131,7 @@ export default function SummaryItemCard({ question, allAnswers }) {
                 );
             }
             return (
-                <div className="text-container">
+                <div className="text-wrapper">
                     {answers.map((a) => (
                         <div key={a.answer_id} className="text-content">
                             {a.answer_text || a.answer_long || "-"}
