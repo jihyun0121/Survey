@@ -12,7 +12,7 @@ export default function ShareButton({ formId }) {
     const handleCopy = async () => {
         try {
             await navigator.clipboard.writeText(url);
-            alert("링크 복사됨!");
+            alert("복사되었습니다");
         } catch (err) {
             alert("복사 실패");
         }
