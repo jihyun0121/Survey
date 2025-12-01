@@ -65,3 +65,23 @@
 .responses-tab.active {
     display: block;
 }
+
+
+.summary-section {
+    text-align: center;
+}
+
+.res-card {
+    border-radius: 8px;
+    border: 1px solid rgb(218, 220, 224);
+    padding: 24px;
+}
+
+.text-muted-none {
+    border-radius: 8px;
+    border: 1px solid rgb(218, 220, 224);
+    padding: 12px;
+    background: #fff;
+    text-align: center;
+
+}
