@@ -1,4 +1,3 @@
-// src/components/editor/QuestionItem.js
 import React, { useState, useEffect, useRef } from "react";
 import { QuestionAPI } from "../../api/api";
 import QuestionOptionEditor from "./QuestionOptionEditor";
