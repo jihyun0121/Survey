@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export default function QuestionLongText({ questionId, value, onChange }) {
+export default function QuestionLongText({ value, onChange }) {
     const inputRef = useRef(null);
 
     useEffect(() => {

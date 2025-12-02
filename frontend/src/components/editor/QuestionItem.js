@@ -152,10 +152,6 @@ export default function QuestionItem({ question, onLocalChange, onDelete, autoFo
                             onBlur={handleQuestionBlur}
                             rows={1}
                         />
-
-                        {/* <div ref={inputRef} className="form-input-base bg-gr editable" contentEditable={true} data-placeholder="질문 입력" onInput={handleEditableInput} onBlur={handleQuestionBlur} suppressContentEditableWarning={true}>
-                                {local.question_content || ""}
-                            </div> */}
                     </div>
                 </div>
 
