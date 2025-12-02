@@ -11,18 +11,6 @@ export default function AuthPage() {
     const [signupEmail, setSignupEmail] = useState("");
     const [signupPassword, setSignupPassword] = useState("");
 
-    // const validatePassword = (pwd) => {
-    //     const minLength = 8;
-    //     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=<>?{}[\]~]).+$/;
-    //     if (pwd.length < minLength) {
-    //         return `비밀번호는 최소 ${minLength}자리 이상이어야 합니다.`;
-    //     }
-    //     if (!regex.test(pwd)) {
-    //         return "비밀번호는 대문자, 소문자, 숫자, 특수문자를 모두 포함해야 합니다.";
-    //     }
-    //     return "";
-    // };
-
     async function handleLogin() {
         if (!loginEmail || !loginPassword) return alert("이메일과 비밀번호를 입력하세요");
         setLoading(true);
