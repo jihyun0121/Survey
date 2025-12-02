@@ -3,7 +3,7 @@
 }
 
 .responses-container {
-    background: #e7ecee;
+    background: #e3edfd;
     width: 100vw;
     min-height: 100vh;
 }
@@ -19,7 +19,7 @@
 
 .response-titles {
     border: 1px solid rgb(218, 220, 224);
-    border-top: 10px solid #607d8b;
+    border-top: 10px solid #4285f4;
     border-radius: 8px;
     background-color: #fff;
     padding: 24px;

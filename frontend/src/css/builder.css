@@ -4,7 +4,7 @@
 
 .editable-input[contenteditable="true"]:empty:before {
     content: attr(data-placeholder);
-    color: #aaa;
+    color: #d0e1fc;
     pointer-events: none;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .block-card {
-    border-top: 10px solid #607d8b;
+    border-top: 10px solid #4285f4;
 }
 
 .block-question-card:focus-within,
@@ -73,7 +73,7 @@
 }
 
 .option-label-input:focus {
-    border-bottom: 2px solid #607d8b;
+    border-bottom: 2px solid #4285f4;
 }
 
 .floating-menu {

@@ -5,7 +5,7 @@
 }
 
 .template-container {
-    background-color: rgb(241, 243, 244);
+    background-color: #e3edfd;
     padding: 24px;
     border-radius: 8px;
     margin-bottom: 24px;
@@ -20,13 +20,13 @@
     max-width: 163px;
     margin-right: 19px;
     margin-bottom: 10px;
-    border: 1px solid #cfd8dc;
+    border: 1px solid #d0e1fc;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
 }
 
 .temp-image:hover {
-    border-color: #607d8b;
+    border-color: #4285f4;
     background-color: #f8fbff;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .recent-card:hover {
-    box-shadow: 0 0 0 0.5px #607d8b inset;
+    box-shadow: 0 0 0 0.5px #4285f4 inset;
 }
 
 .recent-title {

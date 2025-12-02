@@ -67,7 +67,7 @@ function RadioResult({ stats, options }) {
                             <span>{percent}%</span>
                         </div>
                         <div className="progress" style={{ height: "6px" }}>
-                            <div className="progress-bar" style={{ width: `${percent}%`, backgroundColor: "#607d8b" }}></div>
+                            <div className="progress-bar" style={{ width: `${percent}%`, backgroundColor: "#4285f4" }}></div>
                         </div>
                     </div>
                 );

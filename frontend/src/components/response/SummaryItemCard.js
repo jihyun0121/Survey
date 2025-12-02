@@ -7,7 +7,7 @@ ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarEle
 
 const VIEW_TYPES = ["pie", "bar", "hbar", "list"];
 
-const COLORS = ["#4285f4", "#ff5722", "#ff9800", "#4caf50", "#673ab7", "#03a9f4", "#db4437", "#009688", "#3f51b5", "#607d8b", "#00bcd4", "#9e9e9e"];
+const COLORS = ["#4285f4", "#ff5722", "#ff9800", "#4caf50", "#673ab7", "#03a9f4", "#db4437", "#009688", "#3f51b5", "#4285f4", "#00bcd4", "#9e9e9e"];
 
 export default function SummaryItemCard({ question, allAnswers }) {
     const [viewType, setViewType] = useState("pie");

@@ -1,5 +1,5 @@
 .com-container {
-    background: #e7ecee;
+    background: #e3edfd;
     padding-top: 12px;
     width: 100vw;
     min-height: 100vh;
@@ -16,7 +16,7 @@
     background: #fff;
     border-radius: 8px;
     border: 1px solid rgb(218, 220, 224);
-    border-top: 10px solid #607d8b;
+    border-top: 10px solid #4285f4;
     padding: 28px 24px;
     margin-bottom: 12px;
 }
@@ -36,7 +36,7 @@
 
 .com-btn {
     font-size: 15px;
-    color: #607d8b;
+    color: #4285f4;
     border: none;
     background: none;
     padding: 6px 0;

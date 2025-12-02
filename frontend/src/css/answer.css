@@ -3,7 +3,7 @@
 }
 
 .answer-container {
-    background: #e7ecee;
+    background: #e3edfd;
     padding-top: 12px;
     width: 100vw;
     min-height: 100vh;
@@ -20,7 +20,7 @@
     background: #fff;
     border-radius: 8px;
     border: 1px solid rgb(218, 220, 224);
-    border-top: 10px solid #607d8b;
+    border-top: 10px solid #4285f4;
     padding: 24px;
     margin-bottom: 12px;
 }
@@ -38,8 +38,8 @@
 }
 
 .answer-check-input:checked {
-    background-color: #607d8b;
-    border-color: #607d8b;
+    background-color: #4285f4;
+    border-color: #4285f4;
 }
 
 .section-block {
@@ -52,7 +52,7 @@
 }
 
 .section-block h5 {
-    background: #607d8b;
+    background: #4285f4;
     border-radius: 8px;
     color: #fff;
     padding: 12px 24px;
@@ -90,7 +90,7 @@
 
 .answer-check-input:focus {
     box-shadow: none;
-    background-color: #607d8b;
+    background-color: #4285f4;
 }
 
 .answer-input-base:focus {
@@ -114,14 +114,14 @@
 }
 
 #nextBtn {
-    background: #607d8b;
-    border-color: #607d8b;
+    background: #4285f4;
+    border-color: #4285f4;
 }
 
 .question-card {
     background: white;
     border: 1px solid rgb(218, 220, 224);
-    border-top: 10px solid #607d8b;
+    border-top: 10px solid #4285f4;
     border-radius: 8px;
     padding: 24px;
     margin-bottom: 12px;
