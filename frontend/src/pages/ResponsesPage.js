@@ -26,10 +26,10 @@ export default function ResponsesPage() {
         setQuestions(q.data);
 
         const a = await AnswerAPI.getAnswersByForm(formId);
-        setAnswers(a.data); // 배열  유지
+        setAnswers(a.data);
 
         const s = await StatisticAPI.getFormStatistics(formId);
-        setFormStats(s.data); // 객체 저장
+        setFormStats(s.data);
     }
 
     const Respondent = formStats?.respondent ?? 0;
