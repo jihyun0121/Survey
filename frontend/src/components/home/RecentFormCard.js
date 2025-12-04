@@ -42,7 +42,10 @@ export default function RecentFormCard({ form, onDelete }) {
                     </div>
 
                     <div className="recent-title">{form.title}</div>
-                    <div className="muted-text mt-1">{formattedDate}</div>
+                    <div className="muted-text mt-1">
+                        <i class="bi bi-clock-history me-1"></i>
+                        {formattedDate}
+                    </div>
                 </div>
             </div>
         </div>
