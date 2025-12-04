@@ -109,16 +109,18 @@ function CheckboxResult({ stats, options }) {
 }
 
 function TextResult({ stats }) {
-    if (Object.keys(stats).length === 0) return <div className="text-wrapper m-0">응답 없음</div>;
+    if (!stats) return <div className="text-wrapper m-0">로딩중...</div>;
+
+    if (Object.keys(stats).length === 0) {
+        return <div className="text-wrapper m-0">응답 없음</div>;
+    }
 
     return (
         <div className="text-wrapper m-0">
             {Object.entries(stats).map(([answers, count]) => {
                 return (
                     <div key={answers} className="text-group">
-                        <div key={count} className="text-content">
-                            {answers}
-                        </div>
+                        <div className="text-content">{answers}</div>
                         <div className="mt-2 text-muted small">
                             <div className="border-bottom"></div>
                             <br />
