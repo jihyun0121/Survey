@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { StatisticAPI } from "../../api/api";
 
-export default function QuestionResponseCard({ question, answers, options }) {
+export default function QuestionResponseCard({ question, options }) {
     const [stats, setStats] = useState(null);
-    const [textList, setTextList] = useState([]);
 
     useEffect(() => {
         loadStats();
@@ -23,8 +22,9 @@ export default function QuestionResponseCard({ question, answers, options }) {
             const res = await StatisticAPI.getCheckboxGroupStats(qId);
             setStats(res.data);
         } else if (type === "SHORT" || type === "LONG") {
-            const res = await StatisticAPI.getTextAnswers(qId);
-            setTextList(res.data);
+            const res = await StatisticAPI.getDuplicateCount(qId);
+            // console.log(res.data);
+            setStats(res.data);
         }
     }
 
@@ -45,7 +45,7 @@ export default function QuestionResponseCard({ question, answers, options }) {
 
                 {type === "CHECKBOX" && <CheckboxResult stats={stats} options={options} />}
 
-                {(type === "SHORT" || type === "LONG") && <TextResult textList={textList} />}
+                {(type === "SHORT" || type === "LONG") && <TextResult stats={stats} />}
             </div>
         </div>
     );
@@ -108,16 +108,25 @@ function CheckboxResult({ stats, options }) {
     );
 }
 
-function TextResult({ textList }) {
+function TextResult({ stats }) {
+    if (Object.keys(stats).length === 0) return <div className="text-wrapper m-0">응답 없음</div>;
+
     return (
         <div className="text-wrapper m-0">
-            {textList.length === 0 && <div className="text-muted">응답 없음</div>}
-
-            {textList.map((t, idx) => (
-                <div key={idx} className="text-content">
-                    {t}
-                </div>
-            ))}
+            {Object.entries(stats).map(([answers, count]) => {
+                return (
+                    <div key={answers} className="text-group">
+                        <div key={count} className="text-content">
+                            {answers}
+                        </div>
+                        <div className="mt-2 text-muted small">
+                            <div className="border-bottom"></div>
+                            <br />
+                            응답 {count}개
+                        </div>
+                    </div>
+                );
+            })}
         </div>
     );
 }
