@@ -23,7 +23,6 @@ export default function QuestionResponseCard({ question, options }) {
             setStats(res.data);
         } else if (type === "SHORT" || type === "LONG") {
             const res = await StatisticAPI.getDuplicateCount(qId);
-            // console.log(res.data);
             setStats(res.data);
         }
     }

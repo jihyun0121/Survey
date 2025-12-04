@@ -222,7 +222,6 @@ export default function AnswerFormPage() {
             }
 
             sessionStorage.removeItem(STORAGE_KEY);
-            // alert("응답이 제출되었습니다!");
             navigate("/forms/answer/complete", {
                 state: {
                     state: "complete",

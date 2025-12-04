@@ -15,18 +15,15 @@ import io.jsonwebtoken.Jwts;
 
 @Component
 public class JWToken {
-
     private final SecretKey secretKey;
     private final long expirationMs;
 
     public JWToken(
             @Value("${jwt.secret}") String secret,
-            @Value("${jwt.expiration:3600000}") long expirationMs
-    ) {
+            @Value("${jwt.expiration:3600000}") long expirationMs) {
         this.secretKey = new SecretKeySpec(
                 secret.getBytes(StandardCharsets.UTF_8),
-                Jwts.SIG.HS256.key().build().getAlgorithm()
-        );
+                Jwts.SIG.HS256.key().build().getAlgorithm());
         this.expirationMs = expirationMs;
     }
 

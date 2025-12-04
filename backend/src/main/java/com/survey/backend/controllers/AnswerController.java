@@ -45,5 +45,4 @@ public class AnswerController {
         answerService.deleteAnswer(userId, formId);
         return ResponseEntity.ok(Map.of("message", "응답 삭제"));
     }
-
 }

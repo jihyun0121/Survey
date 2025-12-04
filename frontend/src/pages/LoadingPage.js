@@ -16,8 +16,6 @@ export default function LoadingPage() {
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("user_id", res.data.user_id);
             localStorage.setItem("email", res.data.email);
-
-            // alert("구글 로그인 성공");
             window.location.href = "/";
         } catch (err) {
             console.error(err);
