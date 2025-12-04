@@ -79,14 +79,14 @@ export default function AuthPage() {
                     <div className="mb-3">
                         <label className="form-label">이메일</label>
                         <div className="input-wrapper">
-                            <input type="email" className="form-input-base" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="이메일을 입력해주세요" />
+                            <input type="email" className="form-input-base auth-place" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="이메일을 입력해주세요" />
                         </div>
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label">비밀번호</label>
                         <div className="input-wrapper">
-                            <input type="password" className="form-input-base" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} placeholder="비밀번호를 입력해주세요" />
+                            <input type="password" className="form-input-base auth-place" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} placeholder="비밀번호를 입력해주세요" />
                         </div>
                     </div>
 
@@ -107,14 +107,14 @@ export default function AuthPage() {
                     <div className="mb-3">
                         <label className="form-label">이메일</label>
                         <div className="input-wrapper">
-                            <input type="email" className="form-input-base" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} placeholder="이메일을 입력해주세요" />
+                            <input type="email" className="form-input-base auth-place" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} placeholder="이메일을 입력해주세요" />
                         </div>
                     </div>
 
                     <div className="mb-3">
                         <label className="form-label">비밀번호</label>
                         <div className="input-wrapper">
-                            <input type="password" className="form-input-base" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} placeholder="비밀번호를 입력해주세요" />
+                            <input type="password" className="form-input-base auth-place" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} placeholder="비밀번호를 입력해주세요" />
                         </div>
                     </div>
 

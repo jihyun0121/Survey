@@ -177,3 +177,11 @@ textarea.form-input-base {
 .fake-option-input:checked::after {
     display: block;
 }
+
+.auth-place {
+    padding: 10px;
+}
+
+.auth-place::placeholder {
+    color: #cccccc;
+}
