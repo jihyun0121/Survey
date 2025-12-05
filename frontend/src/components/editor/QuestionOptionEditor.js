@@ -29,12 +29,13 @@ export default function QuestionOptionEditor({ options = [], questionId, type, o
 
                 onOptionsChange(newOrder);
 
-                newOrder.forEach((opt, index) => {
-                    QuestionAPI.reorderOptions({
+                for (let index = 0; index < newOrder.length; index++) {
+                    const opt = newOrder[index];
+                    await QuestionAPI.reorderOptions({
                         option_id: opt.option_id,
                         option_order: index + 1,
-                    }).catch((err) => console.warn("reorder 실패", err));
-                });
+                    });
+                }
             },
         });
 
