@@ -7,19 +7,19 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import "./css/style.css";
-import "./css/icon.css";
-import "./css/card.css";
 import "./css/nav.css";
-import "./css/editor.css";
-import "./css/builder.css";
-import "./css/input.css";
 import "./css/handle.css";
-import "./css/answer.css";
-import "./css/complete.css";
 import "./css/header.css";
-import "./css/response.css";
 import "./css/chart.css";
+import "./css/base/style.css";
+import "./css/ui/icon.css";
+import "./css/ui/card.css";
+import "./css/ui/input.css";
+import "./css/pages/editor.css";
+import "./css/pages/builder.css";
+import "./css/pages/answer.css";
+import "./css/pages/complete.css";
+import "./css/pages/response.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
